@@ -1,3 +1,4 @@
+import { LocationsContainer } from '../../components/locations-container/locations-container';
 import { CitiesCard } from '../../components/cities-card/cities-card';
 
 type AvalibalePlaces = {
@@ -9,40 +10,9 @@ function MainPage({placesCount}: AvalibalePlaces): JSX.Element {
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
-        <section className="locations container">
-          <ul className="locations__list tabs__list">
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Paris</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Cologne</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Brussels</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item tabs__item--active">
-                <span>Amsterdam</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Hamburg</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Dusseldorf</span>
-              </a>
-            </li>
-          </ul>
-        </section>
+
+        <LocationsContainer />
+
       </div>
       <div className="cities">
         <div className="cities__places-container container">
@@ -65,39 +35,42 @@ function MainPage({placesCount}: AvalibalePlaces): JSX.Element {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              <article className="cities__card place-card">
-                <div className="place-card__mark">
-                  <span>Premium</span>
-                </div>
-                <div className="cities__image-wrapper place-card__image-wrapper">
-                  <a href="#">
-                    <img className="place-card__image" src="img/apartment-01.jpg" width={260} height={200} alt="Place image" />
-                  </a>
-                </div>
-                <div className="place-card__info">
-                  <div className="place-card__price-wrapper">
-                    <div className="place-card__price">
-                      <b className="place-card__price-value">€120</b>
-                      <span className="place-card__price-text">/&nbsp;night</span>
-                    </div>
-                  </div>
-                  <div className="place-card__rating rating">
-                    <div className="place-card__stars rating__stars">
-                      <span style={{width: '80%'}} />
-                      <span className="visually-hidden">Rating</span>
-                    </div>
-                  </div>
-                  <h2 className="place-card__name">
-                    <a href="#">Beautiful &amp; luxurious apartment at great location</a>
-                  </h2>
-                  <p className="place-card__type">Apartment</p>
-                </div>
-              </article>
 
-              <CitiesCard />
-              <CitiesCard />
-              <CitiesCard />
-              <CitiesCard />
+              <CitiesCard
+                placesPremium
+                placesImgUrl={'img/apartment-01.jpg'}
+                placesCost={120}
+                placesName={'Beautiful &amp; luxurious apartment at great location'}
+                placesType={'Apartment'}
+              />
+              <CitiesCard
+                placesPremium={false}
+                placesImgUrl={'img/room.jpg'}
+                placesCost={80}
+                placesName={'Wood and stone place'}
+                placesType={'Private room'}
+              />
+              <CitiesCard
+                placesPremium={false}
+                placesImgUrl={'img/room.jpg'}
+                placesCost={80}
+                placesName={'Wood and stone place'}
+                placesType={'Private room'}
+              />
+              <CitiesCard
+                placesPremium={false}
+                placesImgUrl={'img/room.jpg'}
+                placesCost={80}
+                placesName={'Wood and stone place'}
+                placesType={'Private room'}
+              />
+              <CitiesCard
+                placesPremium={false}
+                placesImgUrl={'img/room.jpg'}
+                placesCost={80}
+                placesName={'Wood and stone place'}
+                placesType={'Private room'}
+              />
 
             </div>
           </section>
