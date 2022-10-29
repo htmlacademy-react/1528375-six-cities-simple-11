@@ -1,4 +1,14 @@
-function Property(): JSX.Element {
+import { OffersType } from '../../types/types';
+
+type RoomPageProps = {
+  offer: OffersType;
+}
+
+const calcRating = (rating: number): number => Math.floor((rating * 100) / 5);
+
+function Room(props: RoomPageProps): JSX.Element {
+  const { isPremium, price, title, type, rating, bedrooms, maxAdults } = props.offer;
+
   return (
     <main className="page__main page__main--property">
       <section className="property">
@@ -27,33 +37,38 @@ function Property(): JSX.Element {
         <div className="property__container container">
           <div className="property__wrapper">
             <div className="property__mark">
-              <span>Premium</span>
+              {isPremium
+                ?
+                <div className="place-card__mark">
+                  <span>Premium</span>
+                </div>
+                : ''}
             </div>
             <div className="property__name-wrapper">
               <h1 className="property__name">
-                  Beautiful &amp; luxurious studio at great location
+                {title}
               </h1>
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
-                <span style={{width: '80%'}} />
+                <span style={{ width: `${calcRating(rating)}%` }} />
                 <span className="visually-hidden">Rating</span>
               </div>
-              <span className="property__rating-value rating__value">4.8</span>
+              <span className="property__rating-value rating__value">{rating}</span>
             </div>
             <ul className="property__features">
               <li className="property__feature property__feature--entire">
-                  Apartment
+                {type}
               </li>
               <li className="property__feature property__feature--bedrooms">
-                  3 Bedrooms
+                {bedrooms} Bedrooms
               </li>
               <li className="property__feature property__feature--adults">
-                  Max 4 adults
+                  Max {maxAdults} adults
               </li>
             </ul>
             <div className="property__price">
-              <b className="property__price-value">€120</b>
+              <b className="property__price-value">€{price}</b>
               <span className="property__price-text">&nbsp;night</span>
             </div>
             <div className="property__inside">
@@ -275,4 +290,4 @@ function Property(): JSX.Element {
   );
 }
 
-export {Property};
+export {Room};
