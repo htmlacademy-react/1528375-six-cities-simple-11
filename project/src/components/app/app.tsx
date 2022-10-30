@@ -6,6 +6,7 @@ import { Header } from '../header/header';
 import { NotFound } from '../../pages/not-found/not-found';
 import { OffersType } from '../../types/types';
 
+
 type AppTypes = {
   placesCount: number;
   offers: OffersType[];
@@ -27,7 +28,12 @@ function App({placesCount, offers}: AppTypes): JSX.Element {
           }
         />
         <Route path='/login' element={<Login />} />
-        <Route path='/offer/:id' element={<Room />} />
+        <Route
+          path='/offer/:id'
+          element={
+            <Room />
+          }
+        />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
