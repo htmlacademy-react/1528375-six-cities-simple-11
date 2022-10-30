@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { MainPage } from '../../pages/main-page/main-page';
 import { Login } from '../../pages/login/login';
-// import { Room } from '../../pages/room/room';
+import { Room } from '../../pages/room/room';
 import { Header } from '../header/header';
 import { NotFound } from '../../pages/not-found/not-found';
 import { OffersType } from '../../types/types';
@@ -27,9 +27,7 @@ function App({placesCount, offers}: AppTypes): JSX.Element {
           }
         />
         <Route path='/login' element={<Login />} />
-        {/* <Route
-          path='/offer/:id'
-          element={<Room />} /> */}
+        <Route path='/offer/:id' element={<Room />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
