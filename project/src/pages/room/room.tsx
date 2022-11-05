@@ -1,15 +1,15 @@
+import { useParams } from 'react-router-dom';
 import { CommentsForm } from '../../components/comment/comment';
 import { offers } from '../../mocks/offers';
 import { OffersType } from '../../types/types';
-
 
 const calcRating = (rating: number): number => Math.floor((rating * 100) / 5);
 
 function Room(): JSX.Element {
 
-  const getOfferId = +(window.location.pathname.split('/').slice(-1)[0]);
+  const params = useParams();
 
-  const offer = offers.find((item) => item.id === getOfferId) as OffersType;
+  const offer = offers.find((item) => item.id === Number(params.id)) as OffersType;
 
   const { isPremium, price, title, type, rating, bedrooms, maxAdults } = offer;
 
