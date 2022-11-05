@@ -1,11 +1,13 @@
 import { LocationsContainer } from '../../components/locations-container/locations-container';
-import { CitiesCard } from '../../components/cities-card/cities-card';
+import { OffersType } from '../../types/types';
+import { OffersList } from '../../components/offers-list/offers-list';
 
-type AvalibalePlaces = {
+type MainPageProps = {
   placesCount: number;
+  offers: OffersType[];
 }
 
-function MainPage({placesCount}: AvalibalePlaces): JSX.Element {
+function MainPage({placesCount, offers}: MainPageProps): JSX.Element {
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -34,45 +36,9 @@ function MainPage({placesCount}: AvalibalePlaces): JSX.Element {
                 <li className="places__option" tabIndex={0}>Top rated first</li>
               </ul>
             </form>
-            <div className="cities__places-list places__list tabs__content">
 
-              <CitiesCard
-                placesPremium
-                placesImgUrl={'img/apartment-01.jpg'}
-                placesCost={120}
-                placesName={'Beautiful &amp; luxurious apartment at great location'}
-                placesType={'Apartment'}
-              />
-              <CitiesCard
-                placesPremium={false}
-                placesImgUrl={'img/room.jpg'}
-                placesCost={80}
-                placesName={'Wood and stone place'}
-                placesType={'Private room'}
-              />
-              <CitiesCard
-                placesPremium={false}
-                placesImgUrl={'img/room.jpg'}
-                placesCost={80}
-                placesName={'Wood and stone place'}
-                placesType={'Private room'}
-              />
-              <CitiesCard
-                placesPremium={false}
-                placesImgUrl={'img/room.jpg'}
-                placesCost={80}
-                placesName={'Wood and stone place'}
-                placesType={'Private room'}
-              />
-              <CitiesCard
-                placesPremium={false}
-                placesImgUrl={'img/room.jpg'}
-                placesCost={80}
-                placesName={'Wood and stone place'}
-                placesType={'Private room'}
-              />
+            <OffersList offers={offers}/>
 
-            </div>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map" />
