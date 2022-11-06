@@ -11,4 +11,14 @@ export type OffersType = {
   rating: number;
   title: string;
   type: string;
+  coord: {
+    lat: number;
+    lng: number;
+  };
 };
+
+export type City = {
+  title: string;
+  lat: number;
+  lng: number;
+}

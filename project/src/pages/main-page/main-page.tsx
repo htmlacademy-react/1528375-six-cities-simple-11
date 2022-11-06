@@ -1,13 +1,24 @@
 import { LocationsContainer } from '../../components/locations-container/locations-container';
-import { OffersType } from '../../types/types';
+import { OffersType, City } from '../../types/types';
 import { OffersList } from '../../components/offers-list/offers-list';
+import { Map } from '../../components/map/map';
+import { useState } from 'react';
 
 type MainPageProps = {
   placesCount: number;
   offers: OffersType[];
+  city: City;
 }
 
-function MainPage({placesCount, offers}: MainPageProps): JSX.Element {
+function MainPage({placesCount, offers, city}: MainPageProps): JSX.Element {
+  const [selectedOffer, setSelectedOffer] = useState<OffersType | undefined>(undefined);
+
+  const onOfferHover = (offerId: number) => {
+    const currentOffer = offers.find((offer) => offer.id === offerId) as OffersType;
+    setSelectedOffer(currentOffer);
+  };
+
+
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -37,11 +48,13 @@ function MainPage({placesCount, offers}: MainPageProps): JSX.Element {
               </ul>
             </form>
 
-            <OffersList offers={offers}/>
+            <OffersList offers = {offers} onOfferHover = {onOfferHover}/>
 
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map" />
+
+            <Map city={city} offers={offers} selectedOffer={selectedOffer}/>
+
           </div>
         </div>
       </div>
