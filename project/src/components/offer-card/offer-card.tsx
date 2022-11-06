@@ -1,17 +1,28 @@
 import { Link } from 'react-router-dom';
 import { OffersType } from '../../types/types';
+import {MouseEvent} from 'react';
 
 type OfferCardProps = {
   offer: OffersType;
+  onOfferHover: (offerId: number) => void;
 };
 
 const calcRating = (rating: number): number => Math.floor((rating * 100) / 5);
 
-function OfferCard(props: OfferCardProps): JSX.Element {
-  const {id, previewImage, isPremium, price, title, type, rating } = props.offer;
+function OfferCard({offer, onOfferHover}: OfferCardProps): JSX.Element {
+  const {id, previewImage, isPremium, price, title, type, rating } = offer;
+
+  const listOfferHoverHandler = (evt: MouseEvent<HTMLLIElement>) => {
+    evt.preventDefault();
+    onOfferHover(offer.id);
+  };
+
 
   return (
-    <article className="cities__card place-card">
+    <article
+      className="cities__card place-card"
+      onMouseEnter={listOfferHoverHandler}
+    >
       {isPremium
         ?
         <div className="place-card__mark">

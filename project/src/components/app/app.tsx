@@ -4,16 +4,19 @@ import { Login } from '../../pages/login/login';
 import { Room } from '../../pages/room/room';
 import { Header } from '../header/header';
 import { NotFound } from '../../pages/not-found/not-found';
-import { OffersType } from '../../types/types';
+import { City, OffersType } from '../../types/types';
 
 
 type AppTypes = {
   placesCount: number;
   offers: OffersType[];
+  city: City;
 }
 
 
-function App({placesCount, offers}: AppTypes): JSX.Element {
+function App(props: AppTypes): JSX.Element {
+  const {placesCount, offers, city} = props;
+
   return (
     <BrowserRouter>
       <Header />
@@ -24,6 +27,7 @@ function App({placesCount, offers}: AppTypes): JSX.Element {
             <MainPage
               placesCount={placesCount}
               offers={offers}
+              city={city}
             />
           }
         />

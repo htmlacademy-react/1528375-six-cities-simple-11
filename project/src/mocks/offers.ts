@@ -12,6 +12,10 @@ const offers = [
     rating: 4.8,
     title: 'Beautiful & luxurious studio at great location',
     type: 'apartment',
+    coord: {
+      lat: 52.3909553943508,
+      lng: 4.85309666406198
+    }
   }, {
     bedrooms: 2,
     cityname: 'Amsterdam',
@@ -25,6 +29,10 @@ const offers = [
     rating: 4.1,
     title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     type: 'private room',
+    coord: {
+      lat: 52.3609553943508,
+      lng: 4.85309666406198
+    }
   }, {
     bedrooms: 2,
     cityname: 'Amsterdam',
@@ -38,6 +46,10 @@ const offers = [
     rating: 3.2,
     title: 'Donec ac massa auctor, pretium enim nec, blandit diam.',
     type: 'private room',
+    coord: {
+      lat: 52.3909553943508,
+      lng: 4.929309666406198
+    }
   }, {
     bedrooms: 4,
     cityname: 'Amsterdam',
@@ -51,6 +63,10 @@ const offers = [
     rating: 4.7,
     title: 'Nullam nec tortor felis. Phasellus vitae velit vel urna congue bibendum a id diam',
     type: 'apartment',
+    coord: {
+      lat: 52.3809553943508,
+      lng: 4.939309666406198
+    }
   }
 ];
 

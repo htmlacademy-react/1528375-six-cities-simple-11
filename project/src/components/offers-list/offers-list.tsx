@@ -3,17 +3,20 @@ import { OffersType } from '../../types/types';
 
 type OffersListType = {
   offers: OffersType[];
+  onOfferHover: (offerId: number) => void;
 }
 
 
-function OffersList(props: OffersListType): JSX.Element {
+function OffersList({offers, onOfferHover}: OffersListType): JSX.Element {
+
   return (
     <div className="cities__places-list places__list tabs__content">
       {
-        props.offers.map((offer) => (
+        offers.map((offer) => (
           <OfferCard
             key={offer.id}
             offer={offer}
+            onOfferHover={onOfferHover}
           />
         ))
       }
