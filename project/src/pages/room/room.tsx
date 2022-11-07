@@ -2,14 +2,24 @@ import { useParams } from 'react-router-dom';
 import { CommentsForm } from '../../components/comment/comment';
 import { offers } from '../../mocks/offers';
 import { OffersType } from '../../types/types';
+import { OfferCard } from '../../components/offer-card/offer-card';
+import { useState } from 'react';
 
 const calcRating = (rating: number): number => Math.floor((rating * 100) / 5);
 
 function Room(): JSX.Element {
 
+  const [selectedOffer, setSelectedOffer] = useState<OffersType | undefined>(undefined);
+  const onOfferHover = (offerId: number) => {
+    const currentOffer = offers.find((offer) => offer.id === offerId) as OffersType;
+    setSelectedOffer(currentOffer);
+  };
+
   const params = useParams();
 
   const offer = offers.find((item) => item.id === Number(params.id)) as OffersType;
+
+  const otherOffers = offers.filter((item) => item.id !== Number(params.id));
 
   const { isPremium, price, title, type, rating, bedrooms, maxAdults } = offer;
 
@@ -134,6 +144,7 @@ function Room(): JSX.Element {
             </div>
 
             <CommentsForm />
+            {/* near-places__card */}
 
           </div>
         </div>
@@ -143,84 +154,17 @@ function Room(): JSX.Element {
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
-            <article className="near-places__card place-card">
-              <div className="near-places__image-wrapper place-card__image-wrapper">
-                <a href="#todo">
-                  <img className="place-card__image" src="img/room.jpg" width={260} height={200} alt="Place image" />
-                </a>
-              </div>
-              <div className="place-card__info">
-                <div className="place-card__price-wrapper">
-                  <div className="place-card__price">
-                    <b className="place-card__price-value">€80</b>
-                    <span className="place-card__price-text">/&nbsp;night</span>
-                  </div>
-                </div>
-                <div className="place-card__rating rating">
-                  <div className="place-card__stars rating__stars">
-                    <span style={{width: '80%'}} />
-                    <span className="visually-hidden">Rating</span>
-                  </div>
-                </div>
-                <h2 className="place-card__name">
-                  <a href="#todo">Wood and stone place</a>
-                </h2>
-                <p className="place-card__type">Private room</p>
-              </div>
-            </article>
-            <article className="near-places__card place-card">
-              <div className="near-places__image-wrapper place-card__image-wrapper">
-                <a href="#todo">
-                  <img className="place-card__image" src="img/apartment-02.jpg" width={260} height={200} alt="Place image" />
-                </a>
-              </div>
-              <div className="place-card__info">
-                <div className="place-card__price-wrapper">
-                  <div className="place-card__price">
-                    <b className="place-card__price-value">€132</b>
-                    <span className="place-card__price-text">/&nbsp;night</span>
-                  </div>
-                </div>
-                <div className="place-card__rating rating">
-                  <div className="place-card__stars rating__stars">
-                    <span style={{width: '80%'}} />
-                    <span className="visually-hidden">Rating</span>
-                  </div>
-                </div>
-                <h2 className="place-card__name">
-                  <a href="#todo">Canal View Prinsengracht</a>
-                </h2>
-                <p className="place-card__type">Apartment</p>
-              </div>
-            </article>
-            <article className="near-places__card place-card">
-              <div className="place-card__mark">
-                <span>Premium</span>
-              </div>
-              <div className="near-places__image-wrapper place-card__image-wrapper">
-                <a href="#todo">
-                  <img className="place-card__image" src="img/apartment-03.jpg" width={260} height={200} alt="Place image" />
-                </a>
-              </div>
-              <div className="place-card__info">
-                <div className="place-card__price-wrapper">
-                  <div className="place-card__price">
-                    <b className="place-card__price-value">€180</b>
-                    <span className="place-card__price-text">/&nbsp;night</span>
-                  </div>
-                </div>
-                <div className="place-card__rating rating">
-                  <div className="place-card__stars rating__stars">
-                    <span style={{width: '100%'}} />
-                    <span className="visually-hidden">Rating</span>
-                  </div>
-                </div>
-                <h2 className="place-card__name">
-                  <a href="#todo">Nice, cozy, warm big bed apartment</a>
-                </h2>
-                <p className="place-card__type">Apartment</p>
-              </div>
-            </article>
+
+            {
+              otherOffers.map((offer) => (
+                <OfferCard
+                  key={offer.id}
+                  offer={offer}
+                  onOfferHover={onOfferHover}
+                />
+              ))
+            }
+
           </div>
         </section>
       </div>
