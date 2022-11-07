@@ -1,9 +1,11 @@
 import { useParams } from 'react-router-dom';
 import { CommentsForm } from '../../components/comment/comment';
 import { offers } from '../../mocks/offers';
+import { CITY } from '../../mocks/city';
 import { OffersType } from '../../types/types';
 import { OfferCard } from '../../components/offer-card/offer-card';
 import { useState } from 'react';
+import { Map } from '../../components/map/map';
 
 const calcRating = (rating: number): number => Math.floor((rating * 100) / 5);
 
@@ -148,7 +150,10 @@ function Room(): JSX.Element {
 
           </div>
         </div>
-        <section className="property__map map" />
+
+        <Map city={CITY} offers={otherOffers} selectedOffer={selectedOffer} height={'579px'} classname={'property__map'} />
+
+
       </section>
       <div className="container">
         <section className="near-places places">

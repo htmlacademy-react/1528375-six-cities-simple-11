@@ -53,7 +53,7 @@ function MainPage({placesCount, offers, city}: MainPageProps): JSX.Element {
           </section>
           <div className="cities__right-section">
 
-            <Map city={city} offers={offers} selectedOffer={selectedOffer}/>
+            <Map city={city} offers={offers} selectedOffer={selectedOffer} height={'836px'} classname={'cities__map'} />
 
           </div>
         </div>
