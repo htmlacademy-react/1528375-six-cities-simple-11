@@ -9,9 +9,11 @@ type MapPropsType = {
   city: City;
   offers: OffersType[];
   selectedOffer: OffersType | undefined;
+  height: string;
+  classname: string;
 }
 
-function Map({city, offers, selectedOffer}: MapPropsType) {
+function Map({city, offers, selectedOffer, height, classname}: MapPropsType) {
   // const {city} = props;
   // const {coord.lat, coord.lng} = props.offer;
 
@@ -50,8 +52,8 @@ function Map({city, offers, selectedOffer}: MapPropsType) {
   }, [map, offers, selectedOffer]);
 
   return (
-    <section className="cities__map"
-      style={{height: '836px'}}
+    <section className={`${classname} map`}
+      style={{height: `${height}`}}
       ref={mapRef}
     >
 
