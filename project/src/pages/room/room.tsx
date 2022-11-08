@@ -1,11 +1,13 @@
 import { useParams } from 'react-router-dom';
-import { CommentsForm } from '../../components/comment/comment';
+import { useState } from 'react';
+import { OffersType } from '../../types/types';
 import { offers } from '../../mocks/offers';
 import { CITY } from '../../mocks/city';
-import { OffersType } from '../../types/types';
+import { reviews } from '../../mocks/reviews';
+import { ReviewForm } from '../../components/review-form/review-form';
 import { OfferCard } from '../../components/offer-card/offer-card';
-import { useState } from 'react';
 import { Map } from '../../components/map/map';
+import { ReviewList } from '../../components/reviews-list/reviews-list';
 
 const calcRating = (rating: number): number => Math.floor((rating * 100) / 5);
 
@@ -144,10 +146,12 @@ function Room(): JSX.Element {
                 </p>
               </div>
             </div>
+            <section className="property__reviews reviews">
 
-            <CommentsForm />
-            {/* near-places__card */}
+              <ReviewList reviews={reviews}/>
+              <ReviewForm />
 
+            </section>
           </div>
         </div>
 
@@ -161,10 +165,10 @@ function Room(): JSX.Element {
           <div className="near-places__list places__list">
 
             {
-              otherOffers.map((offer) => (
+              otherOffers.map((otheroffer) => (
                 <OfferCard
-                  key={offer.id}
-                  offer={offer}
+                  key={otheroffer.id}
+                  offer={otheroffer}
                   onOfferHover={onOfferHover}
                 />
               ))

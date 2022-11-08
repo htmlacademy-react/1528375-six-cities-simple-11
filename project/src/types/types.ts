@@ -22,3 +22,16 @@ export type City = {
   lat: number;
   lng: number;
 }
+
+export type Reviews = {
+  id: number;
+    comment: string;
+    date: string;
+    rating: number;
+    user: {
+        avatarUrl: string;
+        id: number;
+        isPro: boolean;
+        name: string;
+    };
+}
