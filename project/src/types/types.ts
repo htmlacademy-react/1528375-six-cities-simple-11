@@ -1,3 +1,5 @@
+import { store } from "../store/store";
+
 export type OffersType = {
   id: number;
   bedrooms: number;
@@ -21,7 +23,7 @@ export type City = {
   title: string;
   lat: number;
   lng: number;
-}
+};
 
 export type Reviews = {
   id: number;
@@ -35,3 +37,5 @@ export type Reviews = {
         name: string;
     };
 }
+
+export type State = ReturnType<typeof store.getState>;

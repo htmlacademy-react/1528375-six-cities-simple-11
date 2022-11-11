@@ -1,16 +1,16 @@
-import { LocationsContainer } from '../../components/locations-container/locations-container';
+import { CitiesList } from '../../components/cities-list/cities-list';
 import { OffersType, City } from '../../types/types';
 import { OffersList } from '../../components/offers-list/offers-list';
 import { Map } from '../../components/map/map';
 import { useState } from 'react';
+import { useAppSelector } from '../../hooks/useSelector';
 
 type MainPageProps = {
-  placesCount: number;
   offers: OffersType[];
   city: City;
 }
 
-function MainPage({placesCount, offers, city}: MainPageProps): JSX.Element {
+function MainPage({offers, city}: MainPageProps): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<OffersType | undefined>(undefined);
 
   const onOfferHover = (offerId: number) => {
@@ -18,20 +18,22 @@ function MainPage({placesCount, offers, city}: MainPageProps): JSX.Element {
     setSelectedOffer(currentOffer);
   };
 
+  const selectedCity = useAppSelector((state) => state.selectedCity);
+  const cityOffers = offers.filter((item) => item.cityname === selectedCity);
 
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
 
-        <LocationsContainer />
+        <CitiesList selectedCity={selectedCity} />
 
       </div>
       <div className="cities">
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{placesCount} places to stay in Amsterdam</b>
+            <b className="places__found">{cityOffers.length} places to stay in {selectedCity}</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex={0}>
@@ -48,7 +50,7 @@ function MainPage({placesCount, offers, city}: MainPageProps): JSX.Element {
               </ul>
             </form>
 
-            <OffersList offers = {offers} onOfferHover = {onOfferHover}/>
+            <OffersList cityOffers={cityOffers} onOfferHover = {onOfferHover}/>
 
           </section>
           <div className="cities__right-section">
