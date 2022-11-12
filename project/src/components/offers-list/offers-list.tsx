@@ -9,9 +9,6 @@ type OffersListType = {
 
 function OffersList({cityOffers, onOfferHover}: OffersListType): JSX.Element {
 
-  // const selectedCity = useAppSelector((state) => state.selectedCity);
-  // const cityOffers = offers.filter((item) => item.cityname === selectedCity)
-
   return (
     <div className="cities__places-list places__list tabs__content">
       {
