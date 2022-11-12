@@ -36,4 +36,5 @@ function useMap (mapRef: MutableRefObject<HTMLElement | null>, city: City): Map 
   return map;
 }
 
+
 export {useMap};

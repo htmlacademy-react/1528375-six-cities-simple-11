@@ -8,14 +8,13 @@ import { City, OffersType } from '../../types/types';
 
 
 type AppTypes = {
-  placesCount: number;
   offers: OffersType[];
-  city: City;
+  city: City[];
 }
 
 
 function App(props: AppTypes): JSX.Element {
-  const {placesCount, offers, city} = props;
+  const {offers, city} = props;
 
   return (
     <BrowserRouter>
@@ -25,7 +24,6 @@ function App(props: AppTypes): JSX.Element {
           index path='/'
           element={
             <MainPage
-              placesCount={placesCount}
               offers={offers}
               city={city}
             />
