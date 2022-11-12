@@ -4,5 +4,6 @@ const selectCityAction = createAction('offer/SelectCity', (city: string) => ({pa
 
 const getOfferAction = createAction('offer/GetOffers');
 
+const getSortingTypeAction = createAction('offer/GetSortType', (sortType: string) => ({payload: sortType}));
 
-export {selectCityAction, getOfferAction};
+export {selectCityAction, getOfferAction, getSortingTypeAction};
