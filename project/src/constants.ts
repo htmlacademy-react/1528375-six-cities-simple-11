@@ -1,13 +1,37 @@
-import { OffersType } from './types/types';
+import { City } from './types/types';
 
-export const cityNames = {
-  PARIS: 'Paris',
-  COLOGNE: 'Cologne',
-  BRUSSELS: 'Brussels',
-  AMSTERDAM: 'Amsterdam',
-  HAMBURG: 'Hamburg',
-  DUSSELDORF: 'Dusseldorf',
-};
+export const CITIES: City[] = [
+  {
+    title: 'Paris',
+    lat: 48.864716,
+    lng: 2.349014,
+  },
+  {
+    title: 'Cologne',
+    lat: 50.935173,
+    lng: 6.953101,
+  },
+  {
+    title: 'Brussels',
+    lat: 50.85045,
+    lng: 4.34878,
+  },
+  {
+    title: 'Amsterdam',
+    lat: 52.377956,
+    lng: 4.897070,
+  },
+  {
+    title: 'Hamburg',
+    lat: 53.551086,
+    lng: 9.993682,
+  },
+  {
+    title: 'Dusseldorf',
+    lat: 51.233334,
+    lng: 6.783333,
+  },
+]
 
 export const sortingItems = {
   POPULAR: 'Popular',
@@ -16,9 +40,3 @@ export const sortingItems = {
   RATING_DOWN: 'Top rated first',
 };
 
-export const sortOffer = [
-  {'Popular': (offers: OffersType[]) => offers},
-  {'Price: low to high': (offers: OffersType[]) => offers.sort((a, b) => a.price - b.price)},
-  {'Price: high to low': (offers: OffersType[]) => offers.sort((a, b) => b.price - a.price)},
-  {'Top rated first': (offers: OffersType[]) => offers.sort((a, b) => b.rating - a.rating)},
-];

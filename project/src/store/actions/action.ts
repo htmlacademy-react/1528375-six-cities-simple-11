@@ -1,6 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
+import { City } from '../../types/types';
 
-const selectCityAction = createAction('offer/SelectCity', (city: string) => ({payload: city}));
+const selectCityAction = createAction('offer/SelectCity', (city: City) => ({payload: city}));
 
 const getOfferAction = createAction('offer/GetOffers');
 

@@ -11,12 +11,12 @@ type MapPropsType = {
   selectedOffer: OffersType | undefined;
   height: string;
   classname: string;
-  selectedCity: string;
+  selectedCity: City;
 }
 
 function Map({city, offers, selectedOffer, height, classname, selectedCity}: MapPropsType) {
 
-  const targetCity = city.find((item) => (item.title === selectedCity)) as City;
+  const targetCity = city.find((item) => (item.title === selectedCity.title)) as City;
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, targetCity);

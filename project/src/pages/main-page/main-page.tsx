@@ -20,7 +20,7 @@ function MainPage({offers, city}: MainPageProps): JSX.Element {
   };
 
   const selectedCity = useAppSelector((state) => state.selectedCity);
-  const cityOffers = offers.filter((item) => item.cityname === selectedCity);
+  const cityOffers = offers.filter((item) => item.cityname === selectedCity.title);
 
   const sortingTypeName = useAppSelector((state) => state.sortType);
 
@@ -50,7 +50,7 @@ function MainPage({offers, city}: MainPageProps): JSX.Element {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{cityOffers.length} places to stay in {selectedCity}</b>
+            <b className="places__found">{cityOffers.length} places to stay in {selectedCity.title}</b>
 
             <SortList />
 

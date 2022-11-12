@@ -1,10 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { cityNames, sortingItems } from '../../constants';
+import { CITIES, sortingItems } from '../../constants';
 import { offers } from '../../mocks/offers';
 import { selectCityAction, getSortingTypeAction } from '../actions/action';
 
 const initialState = {
-  selectedCity: cityNames.PARIS,
+  selectedCity: CITIES[0],
   offers: offers,
   sortType: sortingItems.POPULAR,
 };
