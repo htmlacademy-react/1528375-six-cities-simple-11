@@ -7,7 +7,7 @@ import { useAppSelector } from '../../hooks/useSelector';
 
 type MainPageProps = {
   offers: OffersType[];
-  city: City;
+  city: City[];
 }
 
 function MainPage({offers, city}: MainPageProps): JSX.Element {
@@ -50,12 +50,12 @@ function MainPage({offers, city}: MainPageProps): JSX.Element {
               </ul>
             </form>
 
-            <OffersList cityOffers={cityOffers} onOfferHover = {onOfferHover}/>
+            <OffersList cityOffers={cityOffers} onOfferHover={onOfferHover}/>
 
           </section>
           <div className="cities__right-section">
 
-            <Map city={city} offers={offers} selectedOffer={selectedOffer} height={'836px'} classname={'cities__map'} />
+            <Map city={city} selectedCity={selectedCity} offers={offers} selectedOffer={selectedOffer} height={'836px'} classname={'cities__map'} />
 
           </div>
         </div>

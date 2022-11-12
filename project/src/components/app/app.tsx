@@ -9,7 +9,7 @@ import { City, OffersType } from '../../types/types';
 
 type AppTypes = {
   offers: OffersType[];
-  city: City;
+  city: City[];
 }
 
 

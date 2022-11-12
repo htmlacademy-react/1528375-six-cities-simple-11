@@ -8,10 +8,12 @@ import { ReviewForm } from '../../components/review-form/review-form';
 import { OfferCard } from '../../components/offer-card/offer-card';
 import { Map } from '../../components/map/map';
 import { ReviewList } from '../../components/reviews-list/reviews-list';
+import { useAppSelector } from '../../hooks/useSelector';
 
 const calcRating = (rating: number): number => Math.floor((rating * 100) / 5);
 
 function Room(): JSX.Element {
+  const selectedCity = useAppSelector((state) => state.selectedCity);
 
   const [selectedOffer, setSelectedOffer] = useState<OffersType | undefined>(undefined);
   const onOfferHover = (offerId: number) => {
@@ -155,7 +157,7 @@ function Room(): JSX.Element {
           </div>
         </div>
 
-        <Map city={CITY} offers={otherOffers} selectedOffer={selectedOffer} height={'579px'} classname={'property__map'} />
+        <Map city={CITY} offers={otherOffers} selectedOffer={selectedOffer} height={'579px'} classname={'property__map'} selectedCity={selectedCity} />
 
 
       </section>
