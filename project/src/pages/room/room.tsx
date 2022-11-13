@@ -2,7 +2,6 @@ import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { OffersType } from '../../types/types';
 import { offers } from '../../mocks/offers';
-import { CITIES } from '../../constants';
 import { reviews } from '../../mocks/reviews';
 import { ReviewForm } from '../../components/review-form/review-form';
 import { OfferCard } from '../../components/offer-card/offer-card';
@@ -157,7 +156,7 @@ function Room(): JSX.Element {
           </div>
         </div>
 
-        <Map city={CITIES} offers={otherOffers} selectedOffer={selectedOffer} height={'579px'} classname={'property__map'} selectedCity={selectedCity} />
+        <Map selectedCity={selectedCity} offers={otherOffers} selectedOffer={selectedOffer} height={'579px'} classname={'property__map'} />
 
 
       </section>

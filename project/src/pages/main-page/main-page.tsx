@@ -59,7 +59,7 @@ function MainPage({offers, city}: MainPageProps): JSX.Element {
           </section>
           <div className="cities__right-section">
 
-            <Map city={city} selectedCity={selectedCity} offers={offers} selectedOffer={selectedOffer} height={'836px'} classname={'cities__map'} />
+            <Map selectedCity={selectedCity} offers={offers} selectedOffer={selectedOffer} height={'836px'} classname={'cities__map'} />
 
           </div>
         </div>
