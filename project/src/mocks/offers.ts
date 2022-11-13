@@ -52,7 +52,7 @@ const offers = [
     }
   }, {
     bedrooms: 4,
-    cityname: 'Amsterdam',
+    cityname: 'Cologne',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean non consequat dui.',
     id: 4,
     images: ['../../img/apartment-04.jpg'],

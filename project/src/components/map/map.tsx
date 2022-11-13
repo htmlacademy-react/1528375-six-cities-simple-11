@@ -6,20 +6,18 @@ import { useMap } from '../../hooks/useMap';
 import { City, OffersType } from '../../types/types';
 
 type MapPropsType = {
-  city: City[];
+  selectedCity: City;
   offers: OffersType[];
   selectedOffer: OffersType | undefined;
   height: string;
   classname: string;
-  selectedCity: string;
 }
 
-function Map({city, offers, selectedOffer, height, classname, selectedCity}: MapPropsType) {
-
-  const targetCity = city.find((item) => (item.title === selectedCity)) as City;
+function Map({selectedCity, offers, selectedOffer, height, classname}: MapPropsType) {
 
   const mapRef = useRef(null);
-  const map = useMap(mapRef, targetCity);
+  const map = useMap(mapRef, selectedCity);
+  map?.setView([selectedCity.lat, selectedCity.lng], 12);
 
   const defaultMapPin = leafleat.icon({
     iconUrl: '../../../img/pin.svg',

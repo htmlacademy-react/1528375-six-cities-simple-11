@@ -1,21 +1,21 @@
 import { MouseEvent } from 'react';
-import { cityNames } from '../../constants';
+import { CITIES } from '../../constants';
 import { selectCityAction } from '../../store/actions/action';
 import { store } from '../../store/store';
+import { City } from '../../types/types';
 
 type citiesListPropType = {
-  selectedCity: string;
+  selectedCity: City;
 }
 
 function CitiesList({selectedCity}: citiesListPropType): JSX.Element {
-
-  const cities = Object.values(cityNames);
 
   const activeCityClass = 'tabs__item--active';
 
   function handleCityClick(evt: MouseEvent) {
     evt.preventDefault();
-    const city = ((evt.target as HTMLLIElement).textContent) as string;
+    const cityName = ((evt.target as HTMLLIElement).textContent) as string;
+    const city = CITIES.find(({title}) => title === cityName) as City;
     store.dispatch(selectCityAction(city));
   }
 
@@ -24,12 +24,12 @@ function CitiesList({selectedCity}: citiesListPropType): JSX.Element {
       <ul className="locations__list tabs__list">
 
         {
-          cities.map((item) => (
-            <li className="locations__item" key={item}>
-              <a className={`locations__item-link tabs__item ${item === selectedCity ? activeCityClass : ''}`} href="#todo"
+          CITIES.map(({title}) => (
+            <li className="locations__item" key={title}>
+              <a className={`locations__item-link tabs__item ${title === selectedCity.title ? activeCityClass : ''}`} href="#todo"
                 onClick={handleCityClick}
               >
-                <span>{item}</span>
+                <span>{title}</span>
               </a>
             </li>
           ))
