@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { OffersType } from '../../types/types';
-import { offers } from '../../mocks/offers';
 import { reviews } from '../../mocks/reviews';
 import { ReviewForm } from '../../components/review-form/review-form';
 import { OfferCard } from '../../components/offer-card/offer-card';
@@ -9,9 +8,14 @@ import { Map } from '../../components/map/map';
 import { ReviewList } from '../../components/reviews-list/reviews-list';
 import { useAppSelector } from '../../hooks/useSelector';
 
+type RoomPropsType = {
+  offers: OffersType[];
+}
+
 const calcRating = (rating: number): number => Math.floor((rating * 100) / 5);
 
-function Room(): JSX.Element {
+function Room(props: RoomPropsType): JSX.Element {
+  const { offers } = props;
   const selectedCity = useAppSelector((state) => state.selectedCity);
 
   const [selectedOffer, setSelectedOffer] = useState<OffersType | undefined>(undefined);
@@ -24,33 +28,22 @@ function Room(): JSX.Element {
 
   const offer = offers.find((item) => item.id === Number(params.id)) as OffersType;
 
-  const otherOffers = offers.filter((item) => item.id !== Number(params.id));
+  const otherOffers = offers.filter((item) => item.id !== Number(params.id) && item.city.name === selectedCity.title);
 
-  const { isPremium, price, title, type, rating, bedrooms, maxAdults } = offer;
+  const { isPremium, price, title, type, rating, bedrooms, maxAdults, goods, images, host } = offer;
 
   return (
     <main className="page__main page__main--property">
       <section className="property">
         <div className="property__gallery-container container">
           <div className="property__gallery">
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/room.jpg" alt="Photo studio" />
-            </div>
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio" />
-            </div>
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/apartment-02.jpg" alt="Photo studio" />
-            </div>
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/apartment-03.jpg" alt="Photo studio" />
-            </div>
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/studio-01.jpg" alt="Photo studio" />
-            </div>
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio" />
-            </div>
+
+            {images.map((image) => (
+              <div className="property__image-wrapper" key={image}>
+                <img className="property__image" src={image} alt="Photo studio" />
+              </div>
+            ))}
+
           </div>
         </div>
         <div className="property__container container">
@@ -73,7 +66,7 @@ function Room(): JSX.Element {
                 <span style={{width: `${calcRating(rating)}%`}} />
                 <span className="visually-hidden">Rating</span>
               </div>
-              <span className="property__rating-value rating__value">4.8</span>
+              <span className="property__rating-value rating__value">{rating}</span>
             </div>
             <ul className="property__features">
               <li className="property__feature property__feature--entire">
@@ -93,50 +86,32 @@ function Room(): JSX.Element {
             <div className="property__inside">
               <h2 className="property__inside-title">What&apos;s inside</h2>
               <ul className="property__inside-list">
-                <li className="property__inside-item">
-                    Wi-Fi
-                </li>
-                <li className="property__inside-item">
-                    Washing machine
-                </li>
-                <li className="property__inside-item">
-                    Towels
-                </li>
-                <li className="property__inside-item">
-                    Heating
-                </li>
-                <li className="property__inside-item">
-                    Coffee machine
-                </li>
-                <li className="property__inside-item">
-                    Baby seat
-                </li>
-                <li className="property__inside-item">
-                    Kitchen
-                </li>
-                <li className="property__inside-item">
-                    Dishwasher
-                </li>
-                <li className="property__inside-item">
-                    Cabel TV
-                </li>
-                <li className="property__inside-item">
-                    Fridge
-                </li>
+
+                {goods.map((item) => (
+                  <li className="property__inside-item" key={item}>
+                    {item}
+                  </li>
+                ))}
+
               </ul>
             </div>
             <div className="property__host">
               <h2 className="property__host-title">Meet the host</h2>
               <div className="property__host-user user">
                 <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                  <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width={74} height={74} alt="Host avatar" />
+                  <img className="property__avatar user__avatar" src={host.avatarUrl} width={74} height={74} alt="Host avatar" />
                 </div>
                 <span className="property__user-name">
-                    Angelina
+                  {host.name}
                 </span>
-                <span className="property__user-status">
-                    Pro
-                </span>
+
+                {host.isPro
+                  ?
+                  <span className="property__user-status">
+                      Pro
+                  </span>
+                  : ''}
+
               </div>
               <div className="property__description">
                 <p className="property__text">

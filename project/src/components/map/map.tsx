@@ -35,8 +35,8 @@ function Map({selectedCity, offers, selectedOffer, height, classname}: MapPropsT
     if (map) {
       offers.forEach((offer) => {
         const marker = new Marker({
-          lat: offer.coord.lat,
-          lng: offer.coord.lng
+          lat: offer.location.latitude,
+          lng: offer.location.longitude
         });
 
         marker

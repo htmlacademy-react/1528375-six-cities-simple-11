@@ -4,17 +4,12 @@ import { Login } from '../../pages/login/login';
 import { Room } from '../../pages/room/room';
 import { Header } from '../header/header';
 import { NotFound } from '../../pages/not-found/not-found';
-import { City, OffersType } from '../../types/types';
+import { useAppSelector } from '../../hooks/useSelector';
 
 
-type AppTypes = {
-  offers: OffersType[];
-  cities: City[];
-}
+function App(): JSX.Element {
 
-
-function App(props: AppTypes): JSX.Element {
-  const {offers, cities} = props;
+  const offers = useAppSelector((state) => state.offers);
 
   return (
     <BrowserRouter>
@@ -25,7 +20,7 @@ function App(props: AppTypes): JSX.Element {
           element={
             <MainPage
               offers={offers}
-              city={cities}
+              // city={cities}
             />
           }
         />
@@ -33,7 +28,7 @@ function App(props: AppTypes): JSX.Element {
         <Route
           path='/offer/:id'
           element={
-            <Room />
+            <Room offers={offers}/>
           }
         />
         <Route path='*' element={<NotFound />} />

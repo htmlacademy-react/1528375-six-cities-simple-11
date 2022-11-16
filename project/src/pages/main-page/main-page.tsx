@@ -1,18 +1,22 @@
 import { CitiesList } from '../../components/cities-list/cities-list';
-import { OffersType, City } from '../../types/types';
+import { OffersType } from '../../types/types';
 import { OffersList } from '../../components/offers-list/offers-list';
 import { Map } from '../../components/map/map';
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks/useSelector';
 import { SortList } from '../../components/sort-list/sort-list';
 
-type MainPageProps = {
+type MainPropsType = {
   offers: OffersType[];
-  city: City[];
 }
 
-function MainPage({offers, city}: MainPageProps): JSX.Element {
+
+function MainPage(props: MainPropsType): JSX.Element {
+
+  const { offers } = props;
+
   const [selectedOffer, setSelectedOffer] = useState<OffersType | undefined>(undefined);
+
 
   const onOfferHover = (offerId: number) => {
     const currentOffer = offers.find((offer) => offer.id === offerId) as OffersType;
@@ -20,7 +24,7 @@ function MainPage({offers, city}: MainPageProps): JSX.Element {
   };
 
   const selectedCity = useAppSelector((state) => state.selectedCity);
-  const cityOffers = offers.filter((item) => item.cityname === selectedCity.title);
+  const cityOffers = offers.filter((item) => item.city.name === selectedCity.title);
 
   const sortingTypeName = useAppSelector((state) => state.sortType);
 

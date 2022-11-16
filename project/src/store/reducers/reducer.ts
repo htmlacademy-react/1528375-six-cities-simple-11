@@ -1,16 +1,22 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { CITIES, sortingItems } from '../../constants';
-import { offers } from '../../mocks/offers';
-import { selectCityAction, getSortingTypeAction } from '../actions/action';
+import { City, OffersType } from '../../types/types';
+import { selectCityAction, getSortingTypeAction, getOfferAction } from '../actions/action';
 
-const initialState = {
+type initialStateType = {
+  selectedCity: City;
+  sortType: string;
+  offers: OffersType[];
+}
+
+const initialState: initialStateType = {
   selectedCity: CITIES[0],
-  offers: offers,
   sortType: sortingItems.POPULAR,
+  offers: [],
 };
 
 
-const changeLocation = createReducer(initialState, (builder) => {
+const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(selectCityAction, (state, action) => {
       state.selectedCity = action.payload;
@@ -18,8 +24,12 @@ const changeLocation = createReducer(initialState, (builder) => {
 
     .addCase(getSortingTypeAction, (state, action) => {
       state.sortType = action.payload;
+    })
+
+    .addCase(getOfferAction, (state, action) => {
+      state.offers = action.payload;
     });
 });
 
 
-export {changeLocation};
+export {reducer};

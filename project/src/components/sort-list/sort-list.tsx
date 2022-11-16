@@ -3,7 +3,6 @@ import { MouseEvent, useState } from 'react';
 import { store } from '../../store/store';
 import { getSortingTypeAction } from '../../store/actions/action';
 
-// places__option--active
 
 function SortList(): JSX.Element {
   const sortingArr = Object.values(sortingItems);
