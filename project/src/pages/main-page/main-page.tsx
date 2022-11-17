@@ -5,6 +5,7 @@ import { Map } from '../../components/map/map';
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks/useSelector';
 import { SortList } from '../../components/sort-list/sort-list';
+import { Loading } from '../../components/loading/loading';
 
 type MainPropsType = {
   offers: OffersType[];
@@ -16,7 +17,6 @@ function MainPage(props: MainPropsType): JSX.Element {
   const { offers } = props;
 
   const [selectedOffer, setSelectedOffer] = useState<OffersType | undefined>(undefined);
-
 
   const onOfferHover = (offerId: number) => {
     const currentOffer = offers.find((offer) => offer.id === offerId) as OffersType;
@@ -40,6 +40,14 @@ function MainPage(props: MainPropsType): JSX.Element {
         return cityOffers;
     }
   };
+
+  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
+
+  if (isOffersLoading) {
+    return (
+      <Loading />
+    );
+  }
 
 
   return (
