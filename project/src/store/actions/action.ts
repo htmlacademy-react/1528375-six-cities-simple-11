@@ -1,10 +1,12 @@
 import { createAction } from '@reduxjs/toolkit';
-import { City } from '../../types/types';
+import { City, OffersType } from '../../types/types';
 
-const selectCityAction = createAction('offer/SelectCity', (city: City) => ({payload: city}));
+const selectCityAction = createAction<City>('offer/SelectCity');
 
-const getOfferAction = createAction('offer/GetOffers');
+const getSortingTypeAction = createAction<string>('offer/GetSortType');
 
-const getSortingTypeAction = createAction('offer/GetSortType', (sortType: string) => ({payload: sortType}));
+const getOfferAction = createAction<OffersType[]>('offer/GetOffers');
 
-export {selectCityAction, getOfferAction, getSortingTypeAction};
+const setLoadingStatusAction = createAction<boolean>('offers/LoadingStatus');
+
+export {selectCityAction, getSortingTypeAction, getOfferAction, setLoadingStatusAction};

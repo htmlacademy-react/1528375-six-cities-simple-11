@@ -31,7 +31,7 @@ export const CITIES: City[] = [
     lat: 51.233334,
     lng: 6.783333,
   },
-]
+];
 
 export const sortingItems = {
   POPULAR: 'Popular',
