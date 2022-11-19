@@ -1,34 +1,42 @@
 import { useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { OffersType } from '../../types/types';
-import { reviews } from '../../mocks/reviews';
 import { ReviewForm } from '../../components/review-form/review-form';
 import { OfferCard } from '../../components/offer-card/offer-card';
 import { Map } from '../../components/map/map';
 import { ReviewList } from '../../components/reviews-list/reviews-list';
 import { useAppSelector } from '../../hooks/useSelector';
+import { store } from '../../store/store';
+import { fetchNearbyOffersAction, fetchTargetOfferAction } from '../../store/actions/api-actions';
+import { AuthStatus } from '../../constants';
 
 type RoomPropsType = {
-  offers: OffersType[];
+  authorizationStatus: AuthStatus;
 }
 
 const calcRating = (rating: number): number => Math.floor((rating * 100) / 5);
 
-function Room(props: RoomPropsType): JSX.Element {
-  const { offers } = props;
+function Room({authorizationStatus}: RoomPropsType): JSX.Element {
   const selectedCity = useAppSelector((state) => state.selectedCity);
 
   const [selectedOffer, setSelectedOffer] = useState<OffersType | undefined>(undefined);
-  const onOfferHover = (offerId: number) => {
-    const currentOffer = offers.find((offer) => offer.id === offerId) as OffersType;
+
+  const {id: offerId} = useParams();
+
+  useEffect(() => {
+    store.dispatch(fetchTargetOfferAction(Number(offerId)));
+    store.dispatch(fetchNearbyOffersAction(Number(offerId)));
+  }, [offerId, store]);
+
+
+  const offer = useAppSelector((state) => state.targetOffer);
+
+  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
+
+  const onOfferHover = (id: number) => {
+    const currentOffer = nearbyOffers.find((item) => item.id === id) as OffersType;
     setSelectedOffer(currentOffer);
   };
-
-  const params = useParams();
-
-  const offer = offers.find((item) => item.id === Number(params.id)) as OffersType;
-
-  const otherOffers = offers.filter((item) => item.id !== Number(params.id) && item.city.name === selectedCity.title);
 
   const { isPremium, price, title, type, rating, bedrooms, maxAdults, goods, images, host } = offer;
 
@@ -124,14 +132,20 @@ function Room(props: RoomPropsType): JSX.Element {
             </div>
             <section className="property__reviews reviews">
 
-              <ReviewList reviews={reviews}/>
-              <ReviewForm />
+              <ReviewList offerId={Number(offerId)}/>
+
+              {
+                authorizationStatus === AuthStatus.Auth
+                  ? <ReviewForm offerId={Number(offerId)}/>
+                  : ''
+              }
+
 
             </section>
           </div>
         </div>
 
-        <Map selectedCity={selectedCity} offers={otherOffers} selectedOffer={selectedOffer} height={'579px'} classname={'property__map'} />
+        <Map selectedCity={selectedCity} offers={nearbyOffers} selectedOffer={selectedOffer} height={'579px'} classname={'property__map'} />
 
 
       </section>
@@ -141,10 +155,10 @@ function Room(props: RoomPropsType): JSX.Element {
           <div className="near-places__list places__list">
 
             {
-              otherOffers.map((otheroffer) => (
+              nearbyOffers.map((nearby) => (
                 <OfferCard
-                  key={otheroffer.id}
-                  offer={otheroffer}
+                  key={nearby.id}
+                  offer={nearby}
                   onOfferHover={onOfferHover}
                 />
               ))

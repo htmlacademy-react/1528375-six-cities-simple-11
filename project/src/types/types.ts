@@ -67,5 +67,23 @@ export type PostData = {
   password: string;
 }
 
+export type CommentType = {
+  comment: string;
+  date: string;
+  id: number;
+  rating: number;
+  user: {
+    avatarUrl: string;
+    id: number;
+    isPro: boolean;
+    name: string;
+  };
+}
+
+export type PostComment = {
+  comment: string;
+  rating: number;
+}
+
 
 export type State = ReturnType<typeof store.getState>;

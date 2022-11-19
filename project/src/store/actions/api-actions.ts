@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AuthStatus } from '../../constants';
 import { deleteToken, saveToken } from '../../services/token';
-import { OffersType, PostData, UserData } from '../../types/types';
+import { CommentType, OffersType, PostComment, PostData, UserData } from '../../types/types';
 import { api, store } from '../store';
-import { getAuthStatusAction, getOfferAction, getUserData, setLoadingStatusAction } from './action';
+import { enterCommentAction, getAuthStatusAction, getCommentsAction, getNearbyOffersAction, getOfferAction, getTargetOffer, getUserData, setLoadingStatusAction } from './action';
 
 const fetchOffersAction = createAsyncThunk(
   'offer/FetchOffers',
@@ -46,4 +46,45 @@ const logoutAction = createAsyncThunk(
   }
 );
 
-export {fetchOffersAction, fetchAuthStatusAction, loginAction, logoutAction};
+const fetchTargetOfferAction = createAsyncThunk(
+  'offer/targetData',
+  async(id: number) => {
+    const {data} = await api.get<OffersType>(`/hotels/${id}`);
+    store.dispatch(getTargetOffer(data));
+  }
+);
+
+const fetchNearbyOffersAction = createAsyncThunk(
+  'offer/nearbyOffers',
+  async(id: number) => {
+    const {data} = await api.get<OffersType[]>(`/hotels/${id}/nearby`);
+    store.dispatch(getNearbyOffersAction(data));
+  }
+);
+
+const fetchCommentsAction = createAsyncThunk(
+  'offer/fetchComments',
+  async(id: number) => {
+    const {data} = await api.get<CommentType[]>(`/comments/${id}`);
+    store.dispatch(getCommentsAction(data));
+  }
+);
+
+const postCommentAction = createAsyncThunk(
+  'offer/postComment',
+ async(id: number) => {
+  const {data} = await api.post<PostComment>(`/comments/${id}`)
+  store.dispatch(enterCommentAction(data));
+ }
+);
+
+export {
+  fetchOffersAction,
+  fetchAuthStatusAction,
+  loginAction,
+  logoutAction,
+  fetchNearbyOffersAction,
+  fetchTargetOfferAction,
+  fetchCommentsAction,
+  postCommentAction,
+};

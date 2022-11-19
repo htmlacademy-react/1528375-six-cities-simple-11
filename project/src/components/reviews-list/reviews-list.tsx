@@ -1,11 +1,16 @@
-import { Reviews } from '../../types/types';
+import { useAppSelector } from '../../hooks/useSelector';
+import { fetchCommentsAction } from '../../store/actions/api-actions';
+import { store } from '../../store/store';
 import { Review } from '../review/review';
 
 type reviewListPropsType = {
-  reviews: Reviews[];
+  offerId: number;
 }
 
-function ReviewList({reviews}: reviewListPropsType): JSX.Element {
+function ReviewList({offerId}: reviewListPropsType): JSX.Element {
+
+  store.dispatch(fetchCommentsAction(offerId));
+  const reviews = useAppSelector((state) => state.comments);
 
   return (
     <>

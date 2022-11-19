@@ -6,6 +6,7 @@ import { useAppSelector } from '../../hooks/useSelector';
 import { Header } from '../header/header';
 import { PrivateRoute } from '../private-route/private-route';
 import { Login } from '../../pages/login/login';
+import { ScrollToTop } from '../../scroll-to-top';
 
 
 function App(): JSX.Element {
@@ -16,6 +17,7 @@ function App(): JSX.Element {
   return (
     <BrowserRouter>
       <Header authorizationStatus={authorizationStatus} />
+      <ScrollToTop />
       <Routes>
         <Route
           index path='/'
@@ -28,7 +30,7 @@ function App(): JSX.Element {
         <Route
           path='/offer/:id'
           element={
-            <Room offers={offers}/>
+            <Room authorizationStatus={authorizationStatus}/>
           }
         />
         <Route
