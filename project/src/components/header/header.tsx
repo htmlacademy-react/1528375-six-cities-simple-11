@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom';
 import { AuthStatus } from '../../constants';
+import { useAppSelector } from '../../hooks/useSelector';
+import { logoutAction } from '../../store/actions/api-actions';
+import { store } from '../../store/store';
 
 type HeaderPropsType = {
   authorizationStatus: AuthStatus;
@@ -7,6 +10,8 @@ type HeaderPropsType = {
 
 function Header(props: HeaderPropsType): JSX.Element {
   const {authorizationStatus} = props;
+  const handleLogout = () => store.dispatch(logoutAction());
+  const { avatarUrl, name } = useAppSelector((state) => state.userData);
 
   return (
     <header className="header">
@@ -24,13 +29,13 @@ function Header(props: HeaderPropsType): JSX.Element {
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
                   <div className="header__nav-profile">
-                    <div className="header__avatar-wrapper user__avatar-wrapper" />
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    <div className="header__avatar-wrapper user__avatar-wrapper" style={{backgroundImage: `url(${avatarUrl})`}}/>
+                    <span className="header__user-name user__name">{name}</span>
                   </div>
                 </li>
                 <li className="header__nav-item">
                   <a className="header__nav-link" href="#todo">
-                    <span className="header__signout">Sign out</span>
+                    <span onClick={handleLogout} className="header__signout">Sign out</span>
                   </a>
                 </li>
               </ul>

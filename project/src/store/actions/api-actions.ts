@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AuthStatus } from '../../constants';
-import { saveToken } from '../../services/token';
+import { deleteToken, saveToken } from '../../services/token';
 import { OffersType, PostData, UserData } from '../../types/types';
 import { api, store } from '../store';
-import { getAuthStatusAction, getOfferAction, setLoadingStatusAction } from './action';
+import { getAuthStatusAction, getOfferAction, getUserData, setLoadingStatusAction } from './action';
 
 const fetchOffersAction = createAsyncThunk(
   'offer/FetchOffers',
@@ -27,14 +27,23 @@ const fetchAuthStatusAction = createAsyncThunk(
   }
 );
 
-const postUserDataAction = createAsyncThunk<void, PostData>(
-  'auth/PostUserData',
+const loginAction = createAsyncThunk<void, PostData>(
+  'user/login',
   async({email, password}) => {
-    const {data: {token}} = await api.post<UserData>('/login', {email, password});
+    const {data: {token}, data} = await api.post<UserData>('/login', {email, password});
     saveToken(token);
     store.dispatch(getAuthStatusAction(AuthStatus.Auth));
-    console.log(token);
+    store.dispatch(getUserData(data));
   }
 );
 
-export {fetchOffersAction, fetchAuthStatusAction, postUserDataAction};
+const logoutAction = createAsyncThunk(
+  'user/logout',
+  async() => {
+    await api.delete('/logout');
+    deleteToken();
+    store.dispatch(getAuthStatusAction(AuthStatus.NoAuth));
+  }
+);
+
+export {fetchOffersAction, fetchAuthStatusAction, loginAction, logoutAction};

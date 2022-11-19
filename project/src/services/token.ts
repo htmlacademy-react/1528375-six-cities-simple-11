@@ -9,5 +9,9 @@ const saveToken = (token: string): void => {
   localStorage.setItem(TOKEN_NAME, token);
 };
 
+const deleteToken = (): void => {
+  localStorage.removeItem(TOKEN_NAME);
+};
 
-export {getToken, saveToken};
+
+export {getToken, saveToken, deleteToken};
