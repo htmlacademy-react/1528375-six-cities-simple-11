@@ -53,5 +53,19 @@ export type Reviews = {
     };
 }
 
+export type UserData = {
+  avatarUrl: string;
+  email: string;
+  id: number;
+  isPro: boolean;
+  name: string;
+  token: string;
+};
+
+export type PostData = {
+  email: string;
+  password: string;
+}
+
 
 export type State = ReturnType<typeof store.getState>;

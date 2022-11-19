@@ -40,3 +40,9 @@ export const sortingItems = {
   RATING_DOWN: 'Top rated first',
 };
 
+export enum AuthStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
+
