@@ -14,7 +14,9 @@ export const getAuthStatusAction = createAction<AuthStatus>('user/authStatus');
 
 export const getUserData = createAction<UserData>('user/data');
 
-export const getTargetOffer = createAction<OffersType>('offer/target');
+export const getTargetOffer = createAction<OffersType>('offer/targetOffer');
+
+export const setLoadingTargetOfferAction = createAction<boolean>('offer/targetLoadingStatus');
 
 export const getNearbyOffersAction = createAction<OffersType[]>('offer/getNearby');
 

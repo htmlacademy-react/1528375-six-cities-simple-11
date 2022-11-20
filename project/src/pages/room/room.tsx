@@ -6,9 +6,10 @@ import { OfferCard } from '../../components/offer-card/offer-card';
 import { Map } from '../../components/map/map';
 import { ReviewList } from '../../components/reviews-list/reviews-list';
 import { useAppSelector } from '../../hooks/useSelector';
-import { store } from '../../store/store';
 import { fetchNearbyOffersAction, fetchTargetOfferAction } from '../../store/actions/api-actions';
 import { AuthStatus } from '../../constants';
+import { Loading } from '../../components/loading/loading';
+import { useAppDispatch } from '../../hooks/useDispatch';
 
 type RoomPropsType = {
   authorizationStatus: AuthStatus;
@@ -17,30 +18,37 @@ type RoomPropsType = {
 const calcRating = (rating: number): number => Math.floor((rating * 100) / 5);
 
 function Room({authorizationStatus}: RoomPropsType): JSX.Element {
+  const dispatch = useAppDispatch();
   const selectedCity = useAppSelector((state) => state.selectedCity);
-
   const [selectedOffer, setSelectedOffer] = useState<OffersType | undefined>(undefined);
-
-  const {id: offerId} = useParams();
-
-  useEffect(() => {
-    store.dispatch(fetchTargetOfferAction(Number(offerId)));
-    store.dispatch(fetchNearbyOffersAction(Number(offerId)));
-  }, [offerId, store]);
-
-
-  const offer = useAppSelector((state) => state.targetOffer);
-
-  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
+  const {id: paramId} = useParams();
+  const offerId = Number(paramId);
+  const isLoading = useAppSelector((state) => state.isTargetLoaded);
 
   const onOfferHover = (id: number) => {
     const currentOffer = nearbyOffers.find((item) => item.id === id) as OffersType;
     setSelectedOffer(currentOffer);
   };
 
+  useEffect(() => {
+    dispatch(fetchTargetOfferAction(offerId));
+    dispatch(fetchNearbyOffersAction(offerId));
+  }, [offerId]);
+
+  const offer = useAppSelector((state) => state.targetOffer);
+  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
+
   const { isPremium, price, title, type, rating, bedrooms, maxAdults, goods, images, host } = offer;
 
+  if (isLoading) {
+    return (
+      <Loading />
+    );
+  }
+
   return (
+
+
     <main className="page__main page__main--property">
       <section className="property">
         <div className="property__gallery-container container">

@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { AuthStatus, CITIES, sortingItems } from '../../constants';
 import { City, CommentType, OffersType, PostComment, UserData } from '../../types/types';
-import { selectCityAction, getSortingTypeAction, getOfferAction, setLoadingStatusAction, getAuthStatusAction, getUserData, getNearbyOffersAction, getTargetOffer, getCommentsAction, enterCommentAction } from '../actions/action';
+import { selectCityAction, getSortingTypeAction, getOfferAction, setLoadingStatusAction, getAuthStatusAction, getUserData, getNearbyOffersAction, getTargetOffer, getCommentsAction, enterCommentAction, setLoadingTargetOfferAction } from '../actions/action';
 
 type initialStateType = {
   selectedCity: City;
@@ -11,6 +11,7 @@ type initialStateType = {
   authorizationStatus: AuthStatus;
   userData: UserData;
   targetOffer: OffersType;
+  isTargetLoaded: boolean;
   nearbyOffers: OffersType[];
   comments: CommentType[];
   postedComment: PostComment;
@@ -22,55 +23,12 @@ const initialState: initialStateType = {
   offers: [],
   isOffersLoading: false,
   authorizationStatus: AuthStatus.Unknown,
-  userData: {avatarUrl: '',
-    email: '',
-    id: NaN,
-    isPro: false,
-    name: '',
-    token: '',},
-  targetOffer: {
-    'bedrooms': 3,
-    'city': {
-      'location': {
-        'latitude': 52.370216,
-        'longitude': 4.895168,
-        'zoom': 10
-      },
-      'name': 'Amsterdam'
-    },
-    'description': 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
-    'goods': [
-      'Heating'
-    ],
-    'host': {
-      'avatarUrl': 'img/1.png',
-      'id': 3,
-      'isPro': true,
-      'name': 'Angelina'
-    },
-    'id': 1,
-    'images': [
-      'img/1.png'
-    ],
-    'isPremium': false,
-    'location': {
-      'latitude': 52.35514938496378,
-      'longitude': 4.673877537499948,
-      'zoom': 8
-    },
-    'maxAdults': 4,
-    'previewImage': 'img/1.png',
-    'price': 120,
-    'rating': 4.8,
-    'title': 'Beautiful & luxurious studio at great location',
-    'type': 'apartment'
-  },
+  userData: {} as UserData,
+  targetOffer: {} as OffersType,
+  isTargetLoaded: false,
   nearbyOffers: [],
   comments: [],
-  postedComment: {
-    comment: '',
-    rating: NaN
-  }
+  postedComment: {} as PostComment,
 };
 
 
@@ -102,6 +60,10 @@ const reducer = createReducer(initialState, (builder) => {
 
     .addCase(getTargetOffer, (state, action) => {
       state.targetOffer = action.payload;
+    })
+
+    .addCase(setLoadingTargetOfferAction, (state, action) => {
+      state.isTargetLoaded = action.payload;
     })
 
     .addCase(getNearbyOffersAction, (state, action) => {

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useAppSelector } from '../../hooks/useSelector';
 import { fetchCommentsAction } from '../../store/actions/api-actions';
 import { store } from '../../store/store';
@@ -9,7 +10,11 @@ type reviewListPropsType = {
 
 function ReviewList({offerId}: reviewListPropsType): JSX.Element {
 
-  store.dispatch(fetchCommentsAction(offerId));
+  useEffect(() => {
+    // store.subscribe(() => store.getState());
+    store.dispatch(fetchCommentsAction(offerId));
+  }, [offerId]);
+
   const reviews = useAppSelector((state) => state.comments);
 
   return (

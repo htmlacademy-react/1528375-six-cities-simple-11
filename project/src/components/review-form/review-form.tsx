@@ -13,8 +13,8 @@ function ReviewForm({offerId}: reviewListPropsType): JSX.Element {
   });
 
   const resetReview = () => {
-    setReview({rating: null, review:''})
-  }
+    setReview({rating: null, review:''});
+  };
 
   const formChangeHandle = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
@@ -27,7 +27,7 @@ function ReviewForm({offerId}: reviewListPropsType): JSX.Element {
   const submitReview = () => {
     store.dispatch(postCommentAction(offerId));
     resetReview();
-  }
+  };
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={submitReview}>
