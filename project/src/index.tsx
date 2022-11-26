@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { store } from './store/store';
 import { fetchAuthStatusAction, fetchOffersAction } from './store/actions/api-actions';
 
+
 store.dispatch(fetchOffersAction());
 store.dispatch(fetchAuthStatusAction());
 

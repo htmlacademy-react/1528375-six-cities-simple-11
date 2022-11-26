@@ -1,7 +1,7 @@
 import { MouseEvent } from 'react';
 import { CITIES } from '../../constants';
+import { useAppDispatch } from '../../hooks/useDispatch';
 import { selectCityAction } from '../../store/actions/action';
-import { store } from '../../store/store';
 import { City } from '../../types/types';
 
 type citiesListPropType = {
@@ -9,14 +9,14 @@ type citiesListPropType = {
 }
 
 function CitiesList({selectedCity}: citiesListPropType): JSX.Element {
-
+  const dispatch = useAppDispatch();
   const activeCityClass = 'tabs__item--active';
 
   function handleCityClick(evt: MouseEvent) {
     evt.preventDefault();
     const cityName = ((evt.target as HTMLLIElement).textContent) as string;
     const city = CITIES.find(({title}) => title === cityName) as City;
-    store.dispatch(selectCityAction(city));
+    dispatch(selectCityAction(city));
   }
 
   return (

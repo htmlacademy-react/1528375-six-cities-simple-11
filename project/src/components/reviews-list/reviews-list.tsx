@@ -1,11 +1,22 @@
-import { Reviews } from '../../types/types';
+import { useEffect } from 'react';
+import { useAppDispatch } from '../../hooks/useDispatch';
+import { useAppSelector } from '../../hooks/useSelector';
+import { fetchCommentsAction } from '../../store/actions/api-actions';
 import { Review } from '../review/review';
 
 type reviewListPropsType = {
-  reviews: Reviews[];
+  offerId: number;
 }
 
-function ReviewList({reviews}: reviewListPropsType): JSX.Element {
+function ReviewList({offerId}: reviewListPropsType): JSX.Element {
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    // store.subscribe(() => store.getState());
+    dispatch(fetchCommentsAction(offerId));
+  }, [offerId]);
+
+  const reviews = useAppSelector((state) => state.comments);
 
   return (
     <>

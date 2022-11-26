@@ -1,17 +1,24 @@
 import { createAction } from '@reduxjs/toolkit';
 import { AuthStatus } from '../../constants';
-import { City, OffersType, UserData } from '../../types/types';
+import { City, CommentType, OffersType, UserData } from '../../types/types';
 
-const selectCityAction = createAction<City>('offer/SelectCity');
+export const selectCityAction = createAction<City>('offer/selectCity');
 
-const getSortingTypeAction = createAction<string>('offer/GetSortType');
+export const getSortingTypeAction = createAction<string>('offer/getSortType');
 
-const getOfferAction = createAction<OffersType[]>('offer/GetOffers');
+export const getOfferAction = createAction<OffersType[]>('offer/getOffers');
 
-const setLoadingStatusAction = createAction<boolean>('offers/LoadingStatus');
+export const setLoadingStatusAction = createAction<boolean>('offers/loadingStatus');
 
-const getAuthStatusAction = createAction<AuthStatus>('user/AuthStatus');
+export const getAuthStatusAction = createAction<AuthStatus>('user/authStatus');
 
-const getUserData = createAction<UserData>('user/data');
+export const getUserData = createAction<UserData>('user/data');
 
-export {selectCityAction, getSortingTypeAction, getOfferAction, setLoadingStatusAction, getAuthStatusAction, getUserData};
+export const getTargetOffer = createAction<OffersType>('offer/targetOffer');
+
+export const setLoadingTargetOfferAction = createAction<boolean>('offer/targetLoadingStatus');
+
+export const getNearbyOffersAction = createAction<OffersType[]>('offer/getNearby');
+
+export const getCommentsAction = createAction<CommentType[]>('offer/comments');
+

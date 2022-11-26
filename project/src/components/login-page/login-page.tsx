@@ -1,14 +1,15 @@
 import { FormEvent, useRef } from 'react';
+import { useAppDispatch } from '../../hooks/useDispatch';
 import { loginAction } from '../../store/actions/api-actions';
-import { store } from '../../store/store';
 import { PostData } from '../../types/types';
 
 function LoginPage(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const dispatch = useAppDispatch();
 
   const onSubmit = (data: PostData) => {
-    store.dispatch(loginAction(data));
+    dispatch(loginAction(data));
   };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {

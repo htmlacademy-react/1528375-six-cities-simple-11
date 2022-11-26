@@ -67,5 +67,19 @@ export type PostData = {
   password: string;
 }
 
+export type CommentType = {
+  comment: string;
+  date: string;
+  id: number;
+  rating: number;
+  user: {
+    avatarUrl: string;
+    id: number;
+    isPro: boolean;
+    name: string;
+  };
+}
 
 export type State = ReturnType<typeof store.getState>;
+
+export type AppDispatch = typeof store.dispatch;

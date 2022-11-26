@@ -1,6 +1,6 @@
 function Loading(): JSX.Element {
   return (
-    <h2>Loading ...</h2>
+    <h2 style={{textAlign: 'center'}}>Loading ...</h2>
   );
 }
 
