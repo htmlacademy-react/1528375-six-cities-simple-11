@@ -23,7 +23,7 @@ function Room({authorizationStatus}: RoomPropsType): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<OffersType | undefined>(undefined);
   const {id: paramId} = useParams();
   const offerId = Number(paramId);
-  const isLoading = useAppSelector((state) => state.isTargetLoaded);
+  const isLoading = useAppSelector((state) => state.isTargetLoading);
 
   const onOfferHover = (id: number) => {
     const currentOffer = nearbyOffers.find((item) => item.id === id) as OffersType;

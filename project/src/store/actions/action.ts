@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 import { AuthStatus } from '../../constants';
-import { City, CommentType, OffersType, PostComment, UserData } from '../../types/types';
+import { City, CommentType, OffersType, UserData } from '../../types/types';
 
 export const selectCityAction = createAction<City>('offer/selectCity');
 
@@ -21,6 +21,4 @@ export const setLoadingTargetOfferAction = createAction<boolean>('offer/targetLo
 export const getNearbyOffersAction = createAction<OffersType[]>('offer/getNearby');
 
 export const getCommentsAction = createAction<CommentType[]>('offer/comments');
-
-export const enterCommentAction = createAction<PostComment>('offer/enterComment');
 

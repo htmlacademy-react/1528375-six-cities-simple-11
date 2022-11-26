@@ -80,12 +80,6 @@ export type CommentType = {
   };
 }
 
-export type PostComment = {
-  comment: string;
-  rating: number;
-}
-
-
 export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;

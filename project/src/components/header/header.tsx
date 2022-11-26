@@ -1,8 +1,9 @@
+import { SyntheticEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthStatus } from '../../constants';
+import { useAppDispatch } from '../../hooks/useDispatch';
 import { useAppSelector } from '../../hooks/useSelector';
 import { logoutAction } from '../../store/actions/api-actions';
-import { store } from '../../store/store';
 
 type HeaderPropsType = {
   authorizationStatus: AuthStatus;
@@ -10,8 +11,11 @@ type HeaderPropsType = {
 
 function Header({authorizationStatus}: HeaderPropsType): JSX.Element {
 
-  function handleLogout() {
-    store.dispatch(logoutAction());
+  const dispatch = useAppDispatch();
+
+  function handleLogout(evt: SyntheticEvent) {
+    evt.preventDefault();
+    dispatch(logoutAction());
   }
 
   const { avatarUrl, name } = useAppSelector((state) => state.userData);

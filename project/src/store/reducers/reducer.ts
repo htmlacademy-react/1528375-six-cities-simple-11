@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { AuthStatus, CITIES, sortingItems } from '../../constants';
-import { City, CommentType, OffersType, PostComment, UserData } from '../../types/types';
-import { selectCityAction, getSortingTypeAction, getOfferAction, setLoadingStatusAction, getAuthStatusAction, getUserData, getNearbyOffersAction, getTargetOffer, getCommentsAction, enterCommentAction, setLoadingTargetOfferAction } from '../actions/action';
+import { City, CommentType, OffersType, UserData } from '../../types/types';
+import { selectCityAction, getSortingTypeAction, getOfferAction, setLoadingStatusAction, getAuthStatusAction, getUserData, getNearbyOffersAction, getTargetOffer, getCommentsAction, setLoadingTargetOfferAction } from '../actions/action';
 
 type initialStateType = {
   selectedCity: City;
@@ -11,10 +11,9 @@ type initialStateType = {
   authorizationStatus: AuthStatus;
   userData: UserData;
   targetOffer: OffersType;
-  isTargetLoaded: boolean;
+  isTargetLoading: boolean;
   nearbyOffers: OffersType[];
   comments: CommentType[];
-  postedComment: PostComment;
 }
 
 const initialState: initialStateType = {
@@ -25,10 +24,9 @@ const initialState: initialStateType = {
   authorizationStatus: AuthStatus.Unknown,
   userData: {} as UserData,
   targetOffer: {} as OffersType,
-  isTargetLoaded: false,
+  isTargetLoading: true,
   nearbyOffers: [],
   comments: [],
-  postedComment: {} as PostComment,
 };
 
 
@@ -63,7 +61,7 @@ const reducer = createReducer(initialState, (builder) => {
     })
 
     .addCase(setLoadingTargetOfferAction, (state, action) => {
-      state.isTargetLoaded = action.payload;
+      state.isTargetLoading = action.payload;
     })
 
     .addCase(getNearbyOffersAction, (state, action) => {
@@ -72,10 +70,6 @@ const reducer = createReducer(initialState, (builder) => {
 
     .addCase(getCommentsAction, (state, action) => {
       state.comments = action.payload;
-    })
-
-    .addCase(enterCommentAction, (state, action) => {
-      state.postedComment = action.payload;
     });
 });
 

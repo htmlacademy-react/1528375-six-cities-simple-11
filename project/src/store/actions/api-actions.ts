@@ -2,8 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { AuthStatus } from '../../constants';
 import { deleteToken, saveToken } from '../../services/token';
-import { AppDispatch, CommentType, OffersType, PostComment, PostData, State, UserData } from '../../types/types';
-import { enterCommentAction, getAuthStatusAction, getCommentsAction, getNearbyOffersAction, getOfferAction, getTargetOffer, getUserData, setLoadingStatusAction, setLoadingTargetOfferAction } from './action';
+import { AppDispatch, CommentType, OffersType, PostData, State, UserData } from '../../types/types';
+import { getAuthStatusAction, getCommentsAction, getNearbyOffersAction, getOfferAction, getTargetOffer, getUserData, setLoadingStatusAction, setLoadingTargetOfferAction } from './action';
 
 const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -100,15 +100,15 @@ const fetchCommentsAction = createAsyncThunk<void, number, {
   }
 );
 
-const postCommentAction = createAsyncThunk<void, number, {
+const postCommentAction = createAsyncThunk<void, {id: number; comment: string; rating: number}, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'offer/postComment',
-  async(id, {dispatch, extra: api}) => {
-    const {data} = await api.post<PostComment>(`/comments/${id}`);
-    dispatch(enterCommentAction(data));
+  async({id, comment, rating}, {dispatch, extra: api}) => {
+    await api.post(`/comments/${id}`, {comment, rating});
+    dispatch(fetchCommentsAction(id));
   }
 );
 
