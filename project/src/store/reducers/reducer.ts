@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { AuthStatus, CITIES, sortingItems } from '../../constants';
+import { AuthStatus, CITIES, sortItemsList } from '../../constants';
 import { City, CommentType, OffersType, UserData } from '../../types/types';
 import { selectCityAction, getSortingTypeAction, getOfferAction, setLoadingStatusAction, getAuthStatusAction, getUserData, getNearbyOffersAction, getTargetOffer, getCommentsAction, setLoadingTargetOfferAction } from '../actions/action';
 
@@ -18,7 +18,7 @@ type initialStateType = {
 
 const initialState: initialStateType = {
   selectedCity: CITIES[0],
-  sortType: sortingItems.POPULAR,
+  sortType: sortItemsList.POPULAR,
   offers: [],
   isOffersLoading: false,
   authorizationStatus: AuthStatus.Unknown,

@@ -33,7 +33,7 @@ export const CITIES: City[] = [
   },
 ];
 
-export const sortingItems = {
+export const sortItemsList = {
   POPULAR: 'Popular',
   PRICE_UP: 'Price: low to high',
   PRICE_DOWN: 'Price: high to low',

@@ -1,15 +1,15 @@
-import { sortingItems } from '../../constants';
+import { sortItemsList } from '../../constants';
 import { MouseEvent, useState } from 'react';
 import { getSortingTypeAction } from '../../store/actions/action';
 import { useAppDispatch } from '../../hooks/useDispatch';
 
 
 function SortList(): JSX.Element {
-  const sortingArr = Object.values(sortingItems);
+  const sortingArr = Object.values(sortItemsList);
 
   const dispatch = useAppDispatch();
   const [isListOpened, setIsListOpened] = useState(false);
-  const [sortType, setSortType] = useState(sortingItems.POPULAR);
+  const [sortType, setSortType] = useState(sortItemsList.POPULAR);
 
   function handleListOpen() {
     setIsListOpened(!isListOpened);

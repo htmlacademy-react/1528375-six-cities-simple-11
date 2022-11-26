@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useAppSelector } from '../../hooks/useSelector';
 import { SortList } from '../../components/sort-list/sort-list';
 import { Loading } from '../../components/loading/loading';
+import { sortItemsList } from '../../constants';
 
 type MainPropsType = {
   offers: OffersType[];
@@ -30,11 +31,11 @@ function MainPage(props: MainPropsType): JSX.Element {
 
   const sortedOffers = () => {
     switch (sortingTypeName) {
-      case 'Price: low to high':
+      case sortItemsList.PRICE_DOWN:
         return cityOffers.sort((a, b) => a.price - b.price);
-      case 'Price: high to low':
+      case sortItemsList.PRICE_UP:
         return cityOffers.sort((a, b) => b.price - a.price);
-      case 'Top rated first':
+      case sortItemsList.RATING_DOWN:
         return cityOffers.sort((a, b) => b.rating - a.rating);
       default:
         return cityOffers;

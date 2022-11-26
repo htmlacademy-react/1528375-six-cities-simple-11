@@ -33,7 +33,7 @@ function Room({authorizationStatus}: RoomPropsType): JSX.Element {
   useEffect(() => {
     dispatch(fetchTargetOfferAction(offerId));
     dispatch(fetchNearbyOffersAction(offerId));
-  }, [offerId]);
+  }, [offerId, dispatch]);
 
   const offer = useAppSelector((state) => state.targetOffer);
   const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
