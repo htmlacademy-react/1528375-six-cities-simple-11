@@ -46,3 +46,10 @@ export enum AuthStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum NameSpace {
+  Offers = 'OFFERS',
+  TargetOffer = 'TARGET_OFFER',
+  User = 'USER',
+  Comments = 'COMMENTS',
+}
+

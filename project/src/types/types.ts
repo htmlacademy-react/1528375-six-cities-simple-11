@@ -1,3 +1,4 @@
+import { AuthStatus } from '../constants';
 import { store } from '../store/store';
 
 export type OffersType = {
@@ -83,3 +84,24 @@ export type CommentType = {
 export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
+
+export type OffersDataType = {
+  offers: OffersType[];
+  isOffersLoading: boolean;
+}
+
+export type TargetOfferType = {
+  targetOffer: OffersType;
+  isTargetLoading: boolean;
+  nearbyOffers: OffersType[];
+}
+
+export type UserProcessType = {
+  authorizationStatus: AuthStatus;
+  userData: UserData;
+}
+
+export type CommentsDataType = {
+  comments: CommentType[];
+  isCommentsLoading: boolean;
+}

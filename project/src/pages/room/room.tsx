@@ -23,7 +23,8 @@ function Room({authorizationStatus}: RoomPropsType): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<OffersType | undefined>(undefined);
   const {id: paramId} = useParams();
   const offerId = Number(paramId);
-  const isLoading = useAppSelector((state) => state.isTargetLoading);
+  const isTargetLoading = useAppSelector((state) => state.isTargetLoading);
+  const isCommentsLoading = useAppSelector((state) => state.isCommentsLoading);
 
   const onOfferHover = (id: number) => {
     const currentOffer = nearbyOffers.find((item) => item.id === id) as OffersType;
@@ -40,7 +41,7 @@ function Room({authorizationStatus}: RoomPropsType): JSX.Element {
 
   const { isPremium, price, title, type, rating, bedrooms, maxAdults, goods, images, host } = offer;
 
-  if (isLoading) {
+  if (isTargetLoading) {
     return (
       <Loading />
     );
@@ -139,6 +140,13 @@ function Room({authorizationStatus}: RoomPropsType): JSX.Element {
               </div>
             </div>
             <section className="property__reviews reviews">
+
+              {isCommentsLoading
+                ?
+                <Loading />
+                :
+                <ReviewList offerId={Number(offerId)}/>
+              }
 
               <ReviewList offerId={Number(offerId)}/>
 
