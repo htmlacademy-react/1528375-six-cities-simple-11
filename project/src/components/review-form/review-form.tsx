@@ -15,7 +15,7 @@ function ReviewForm({offerId}: reviewListPropsType): JSX.Element {
   });
 
   const resetReview = () => {
-    setReview({rating: NaN, comment:''});
+    setReview({rating: 0, comment:''});
   };
 
   const formChangeHandle = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

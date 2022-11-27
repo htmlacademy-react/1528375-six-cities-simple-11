@@ -10,6 +10,8 @@ import { fetchNearbyOffersAction, fetchTargetOfferAction } from '../../store/act
 import { AuthStatus } from '../../constants';
 import { Loading } from '../../components/loading/loading';
 import { useAppDispatch } from '../../hooks/useDispatch';
+import { getSelectedCity } from '../../store/ui-actions/selectors';
+import { getNearbyOffers, getTargetOffer, getTargetOfferLoadingStatus } from '../../store/target-offer-data/selectors';
 
 type RoomPropsType = {
   authorizationStatus: AuthStatus;
@@ -19,12 +21,11 @@ const calcRating = (rating: number): number => Math.floor((rating * 100) / 5);
 
 function Room({authorizationStatus}: RoomPropsType): JSX.Element {
   const dispatch = useAppDispatch();
-  const selectedCity = useAppSelector((state) => state.selectedCity);
+  const selectedCity = useAppSelector(getSelectedCity);
   const [selectedOffer, setSelectedOffer] = useState<OffersType | undefined>(undefined);
   const {id: paramId} = useParams();
   const offerId = Number(paramId);
-  const isTargetLoading = useAppSelector((state) => state.isTargetLoading);
-  const isCommentsLoading = useAppSelector((state) => state.isCommentsLoading);
+  const isTargetLoading = useAppSelector(getTargetOfferLoadingStatus);
 
   const onOfferHover = (id: number) => {
     const currentOffer = nearbyOffers.find((item) => item.id === id) as OffersType;
@@ -36,8 +37,8 @@ function Room({authorizationStatus}: RoomPropsType): JSX.Element {
     dispatch(fetchNearbyOffersAction(offerId));
   }, [offerId, dispatch]);
 
-  const offer = useAppSelector((state) => state.targetOffer);
-  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
+  const offer = useAppSelector(getTargetOffer);
+  const nearbyOffers = useAppSelector(getNearbyOffers);
 
   const { isPremium, price, title, type, rating, bedrooms, maxAdults, goods, images, host } = offer;
 
@@ -140,13 +141,6 @@ function Room({authorizationStatus}: RoomPropsType): JSX.Element {
               </div>
             </div>
             <section className="property__reviews reviews">
-
-              {isCommentsLoading
-                ?
-                <Loading />
-                :
-                <ReviewList offerId={Number(offerId)}/>
-              }
 
               <ReviewList offerId={Number(offerId)}/>
 

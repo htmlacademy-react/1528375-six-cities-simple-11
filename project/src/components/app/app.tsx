@@ -7,12 +7,14 @@ import { Header } from '../header/header';
 import { PrivateRoute } from '../private-route/private-route';
 import { Login } from '../../pages/login/login';
 import { ScrollToTop } from '../../scroll-to-top';
+import { getOffers } from '../../store/offers-data/selectors';
+import { getAuthStatus } from '../../store/user-process/selectors';
 
 
 function App(): JSX.Element {
 
-  const offers = useAppSelector((state) => state.offers);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const offers = useAppSelector(getOffers);
+  const authorizationStatus = useAppSelector(getAuthStatus);
 
   return (
     <BrowserRouter>

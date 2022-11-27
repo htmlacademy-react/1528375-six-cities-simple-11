@@ -7,6 +7,8 @@ import { useAppSelector } from '../../hooks/useSelector';
 import { SortList } from '../../components/sort-list/sort-list';
 import { Loading } from '../../components/loading/loading';
 import { sortItemsList } from '../../constants';
+import { getSelectedCity, getSortType } from '../../store/ui-actions/selectors';
+import { getOffersLoadingStatus } from '../../store/offers-data/selectors';
 
 type MainPropsType = {
   offers: OffersType[];
@@ -24,10 +26,10 @@ function MainPage(props: MainPropsType): JSX.Element {
     setSelectedOffer(currentOffer);
   };
 
-  const selectedCity = useAppSelector((state) => state.selectedCity);
+  const selectedCity = useAppSelector(getSelectedCity);
   const cityOffers = offers.filter((item) => item.city.name === selectedCity.title);
 
-  const sortingTypeName = useAppSelector((state) => state.sortType);
+  const sortingTypeName = useAppSelector(getSortType);
 
   const sortedOffers = () => {
     switch (sortingTypeName) {
@@ -42,7 +44,7 @@ function MainPage(props: MainPropsType): JSX.Element {
     }
   };
 
-  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
+  const isOffersLoading = useAppSelector(getOffersLoadingStatus);
 
   if (isOffersLoading) {
     return (

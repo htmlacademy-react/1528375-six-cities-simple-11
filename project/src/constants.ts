@@ -51,5 +51,6 @@ export enum NameSpace {
   TargetOffer = 'TARGET_OFFER',
   User = 'USER',
   Comments = 'COMMENTS',
+  Ui = 'UI',
 }
 

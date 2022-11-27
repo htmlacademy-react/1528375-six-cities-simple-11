@@ -1,12 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { NameSpace } from "../../constants";
-import { CommentsDataType } from "../../types/types";
-import { fetchCommentsAction } from "../actions/api-actions";
+import { createSlice } from '@reduxjs/toolkit';
+import { NameSpace } from '../../constants';
+import { CommentsDataType } from '../../types/types';
+import { fetchCommentsAction } from '../actions/api-actions';
 
 const initialState: CommentsDataType = {
   comments: [],
   isCommentsLoading: true,
-}
+};
 
 const commentsData = createSlice({
   name: NameSpace.Comments,
@@ -20,8 +20,8 @@ const commentsData = createSlice({
       .addCase(fetchCommentsAction.fulfilled, (state, action) => {
         state.comments = action.payload;
         state.isCommentsLoading = false;
-      })
+      });
   },
-})
+});
 
 export {commentsData};

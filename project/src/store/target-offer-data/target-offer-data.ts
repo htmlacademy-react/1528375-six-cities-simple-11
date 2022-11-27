@@ -1,13 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { NameSpace } from "../../constants";
-import { OffersType, TargetOfferType } from "../../types/types";
-import { fetchNearbyOffersAction, fetchTargetOfferAction } from "../actions/api-actions";
+import { createSlice } from '@reduxjs/toolkit';
+import { NameSpace } from '../../constants';
+import { OffersType, TargetOfferType } from '../../types/types';
+import { fetchNearbyOffersAction, fetchTargetOfferAction } from '../actions/api-actions';
 
 const initialState: TargetOfferType = {
   targetOffer: {} as OffersType,
   isTargetLoading: true,
   nearbyOffers: [],
-}
+};
 
 const targetOfferData = createSlice({
   name: NameSpace.TargetOffer,
@@ -24,8 +24,8 @@ const targetOfferData = createSlice({
       })
       .addCase(fetchNearbyOffersAction.fulfilled, (state, action) => {
         state.nearbyOffers = action.payload;
-      })
+      });
   },
-})
+});
 
 export {targetOfferData};

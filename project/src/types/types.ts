@@ -105,3 +105,8 @@ export type CommentsDataType = {
   comments: CommentType[];
   isCommentsLoading: boolean;
 }
+
+export type UiActionsType = {
+  selectedCity: City;
+  sortType: string;
+}

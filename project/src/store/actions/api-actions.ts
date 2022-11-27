@@ -2,7 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { deleteToken, saveToken } from '../../services/token';
 import { AppDispatch, CommentType, OffersType, PostData, State, UserData } from '../../types/types';
-import { getCommentsAction } from './action';
 
 const fetchOffersAction = createAsyncThunk<OffersType[], undefined, {
   dispatch: AppDispatch;

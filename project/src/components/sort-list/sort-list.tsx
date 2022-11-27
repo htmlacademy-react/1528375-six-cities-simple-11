@@ -1,6 +1,6 @@
 import { sortItemsList } from '../../constants';
 import { MouseEvent, useState } from 'react';
-import { getSortingTypeAction } from '../../store/actions/action';
+import { getSortingTypeAction } from '../../store/ui-actions/ui-actions';
 import { useAppDispatch } from '../../hooks/useDispatch';
 
 

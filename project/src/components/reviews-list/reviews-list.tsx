@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { useAppDispatch } from '../../hooks/useDispatch';
 import { useAppSelector } from '../../hooks/useSelector';
 import { fetchCommentsAction } from '../../store/actions/api-actions';
+import { getCommentLoadingStatus, getComments } from '../../store/comments-data/selectors';
+import { Loading } from '../loading/loading';
 import { Review } from '../review/review';
 
 type reviewListPropsType = {
@@ -11,12 +13,19 @@ type reviewListPropsType = {
 function ReviewList({offerId}: reviewListPropsType): JSX.Element {
 
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    // store.subscribe(() => store.getState());
-    dispatch(fetchCommentsAction(offerId));
-  }, [offerId]);
 
-  const reviews = useAppSelector((state) => state.comments);
+  useEffect(() => {
+    dispatch(fetchCommentsAction(offerId));
+  }, [offerId, dispatch]);
+
+  const reviews = useAppSelector(getComments);
+  const isCommentsLoading = useAppSelector(getCommentLoadingStatus);
+
+  if (isCommentsLoading) {
+    return (
+      <Loading />
+    );
+  }
 
   return (
     <>
