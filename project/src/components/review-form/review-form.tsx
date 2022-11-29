@@ -1,6 +1,7 @@
 import { ChangeEvent, SyntheticEvent, useState } from 'react';
 import { useAppDispatch } from '../../hooks/useDispatch';
 import { postCommentAction } from '../../store/actions/api-actions';
+import { Stars } from './stars';
 
 type reviewListPropsType = {
   offerId: number;
@@ -36,40 +37,25 @@ function ReviewForm({offerId}: reviewListPropsType): JSX.Element {
     resetReview();
   };
 
+  const rating = ['terribly', 'badly', 'not bad', 'good', 'perfect'];
+
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={submitReview}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        <input className="form__rating-input visually-hidden" name="rating" value={5} id="5-stars" type="radio" onChange={formChangeHandle}/>
-        <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
-          <svg className="form__star-image" width={37} height={33}>
-            <use xlinkHref="#icon-star" />
-          </svg>
-        </label>
-        <input className="form__rating-input visually-hidden" name="rating" value={4} id="4-stars" type="radio" onChange={formChangeHandle} />
-        <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
-          <svg className="form__star-image" width={37} height={33}>
-            <use xlinkHref="#icon-star" />
-          </svg>
-        </label>
-        <input className="form__rating-input visually-hidden" name="rating" value={3} id="3-stars" type="radio" onChange={formChangeHandle}/>
-        <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
-          <svg className="form__star-image" width={37} height={33}>
-            <use xlinkHref="#icon-star" />
-          </svg>
-        </label>
-        <input className="form__rating-input visually-hidden" name="rating" value={2} id="2-stars" type="radio" onChange={formChangeHandle}/>
-        <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
-          <svg className="form__star-image" width={37} height={33}>
-            <use xlinkHref="#icon-star" />
-          </svg>
-        </label>
-        <input className="form__rating-input visually-hidden" name="rating" value={1} id="1-star" type="radio" onChange={formChangeHandle}/>
-        <label htmlFor="1-star" className="reviews__rating-label form__rating-label" title="terribly">
-          <svg className="form__star-image" width={37} height={33}>
-            <use xlinkHref="#icon-star" />
-          </svg>
-        </label>
+
+        {
+          rating.reverse().map((item, i) => (
+            <Stars
+              key={item}
+              item={item}
+              i={i}
+              rating={rating}
+              formChangeHandle={formChangeHandle}
+            />
+          ))
+        }
+
       </div>
       <textarea className="reviews__textarea form__textarea" id="review" name="comment" placeholder="Tell how was your stay, what you like and what can be improved" value={review.comment} onChange={formChangeHandle}/>
       <div className="reviews__button-wrapper">

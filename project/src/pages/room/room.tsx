@@ -4,7 +4,7 @@ import { OffersType } from '../../types/types';
 import { ReviewForm } from '../../components/review-form/review-form';
 import { OfferCard } from '../../components/offer-card/offer-card';
 import { Map } from '../../components/map/map';
-import { ReviewList } from '../../components/reviews-list/reviews-list';
+import ReviewList from '../../components/reviews-list/reviews-list';
 import { useAppSelector } from '../../hooks/useSelector';
 import { fetchNearbyOffersAction, fetchTargetOfferAction } from '../../store/actions/api-actions';
 import { AuthStatus } from '../../constants';

@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react';
+import { memo, MouseEvent } from 'react';
 import { CITIES } from '../../constants';
 import { useAppDispatch } from '../../hooks/useDispatch';
 import { selectCityAction } from '../../store/ui-actions/ui-actions';
@@ -40,4 +40,4 @@ function CitiesList({selectedCity}: citiesListPropType): JSX.Element {
   );
 }
 
-export {CitiesList};
+export default memo(CitiesList);

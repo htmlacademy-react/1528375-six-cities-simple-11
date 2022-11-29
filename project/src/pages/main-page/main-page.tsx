@@ -1,10 +1,10 @@
-import { CitiesList } from '../../components/cities-list/cities-list';
+import CitiesList from '../../components/cities-list/cities-list';
 import { OffersType } from '../../types/types';
-import { OffersList } from '../../components/offers-list/offers-list';
+import OffersList from '../../components/offers-list/offers-list';
 import { Map } from '../../components/map/map';
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks/useSelector';
-import { SortList } from '../../components/sort-list/sort-list';
+import SortList from '../../components/sort-list/sort-list';
 import { Loading } from '../../components/loading/loading';
 import { sortItemsList } from '../../constants';
 import { getSelectedCity, getSortType } from '../../store/ui-actions/selectors';

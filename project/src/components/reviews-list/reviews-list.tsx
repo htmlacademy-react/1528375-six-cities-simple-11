@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { useAppDispatch } from '../../hooks/useDispatch';
 import { useAppSelector } from '../../hooks/useSelector';
 import { fetchCommentsAction } from '../../store/actions/api-actions';
@@ -44,4 +44,4 @@ function ReviewList({offerId}: reviewListPropsType): JSX.Element {
   );
 }
 
-export { ReviewList };
+export default memo(ReviewList);
