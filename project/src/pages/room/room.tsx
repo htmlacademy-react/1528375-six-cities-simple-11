@@ -58,7 +58,7 @@ function Room({authorizationStatus}: RoomPropsType): JSX.Element {
 
             {images.map((image) => (
               <div className="property__image-wrapper" key={image}>
-                <img className="property__image" src={image} alt="Photo studio" />
+                <img className="property__image" src={image} alt="Photostudio" />
               </div>
             ))}
 

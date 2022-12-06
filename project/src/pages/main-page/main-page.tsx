@@ -9,6 +9,7 @@ import { Loading } from '../../components/loading/loading';
 import { sortItemsList } from '../../constants';
 import { getSelectedCity, getSortType } from '../../store/ui-actions/selectors';
 import { getOffersLoadingStatus } from '../../store/offers-data/selectors';
+import { MainPageEmpty } from '../../components/main-empty/main-empty';
 
 type MainPropsType = {
   offers: OffersType[];
@@ -52,7 +53,6 @@ function MainPage(props: MainPropsType): JSX.Element {
     );
   }
 
-
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -61,24 +61,32 @@ function MainPage(props: MainPropsType): JSX.Element {
         <CitiesList selectedCity={selectedCity} />
 
       </div>
-      <div className="cities">
-        <div className="cities__places-container container">
-          <section className="cities__places places">
-            <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{cityOffers.length} places to stay in {selectedCity.title}</b>
 
-            <SortList />
+      {
+        cityOffers.length
+          ?
+          <div className="cities">
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{cityOffers.length} places to stay in {selectedCity.title}</b>
 
-            <OffersList cityOffers={sortedOffers()} onOfferHover={onOfferHover}/>
+                <SortList />
 
-          </section>
-          <div className="cities__right-section">
+                <OffersList cityOffers={sortedOffers()} onOfferHover={onOfferHover}/>
 
-            <Map selectedCity={selectedCity} offers={offers} selectedOffer={selectedOffer} height={'836px'} classname={'cities__map'} />
+              </section>
+              <div className="cities__right-section">
 
+                <Map selectedCity={selectedCity} offers={offers} selectedOffer={selectedOffer} height={'836px'} classname={'cities__map'} />
+
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+          :
+          <MainPageEmpty />
+      }
+
     </main>
   );
 }
