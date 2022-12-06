@@ -1,4 +1,5 @@
 import { ChangeEvent, SyntheticEvent, useState } from 'react';
+import { ReviewValid } from '../../constants';
 import { useAppDispatch } from '../../hooks/useDispatch';
 import { postCommentAction } from '../../store/actions/api-actions';
 import { Stars } from './stars';
@@ -39,6 +40,9 @@ function ReviewForm({offerId}: reviewListPropsType): JSX.Element {
 
   const rating = ['terribly', 'badly', 'not bad', 'good', 'perfect'];
 
+  const {MAX_LENGTH: maxLength, MIN_LENGTH: minLength} = ReviewValid;
+  const reviewIsValid = review.rating && review.comment.length > minLength && review.comment.length < maxLength;
+
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={submitReview}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
@@ -62,7 +66,15 @@ function ReviewForm({offerId}: reviewListPropsType): JSX.Element {
         <p className="reviews__help">
             To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit">Submit</button>
+
+        {
+          reviewIsValid
+            ?
+            <button className="reviews__submit form__submit button" type="submit">Submit</button>
+            :
+            <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+        }
+
       </div>
     </form>
   );

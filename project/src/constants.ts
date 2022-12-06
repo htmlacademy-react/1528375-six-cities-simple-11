@@ -54,3 +54,8 @@ export enum NameSpace {
   Ui = 'UI',
 }
 
+export const ReviewValid = {
+  MAX_LENGTH: 300,
+  MIN_LENGTH: 50
+};
+

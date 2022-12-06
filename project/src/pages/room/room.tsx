@@ -17,7 +17,7 @@ type RoomPropsType = {
   authorizationStatus: AuthStatus;
 }
 
-const calcRating = (rating: number): number => Math.floor((rating * 100) / 5);
+const calcRating = (rating: number): number => (Math.round(rating) * 100) / 5;
 
 function Room({authorizationStatus}: RoomPropsType): JSX.Element {
   const dispatch = useAppDispatch();
