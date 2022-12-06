@@ -59,3 +59,5 @@ export const ReviewValid = {
   MIN_LENGTH: 50
 };
 
+export const MAX_REVIEW_COUNT = 10;
+

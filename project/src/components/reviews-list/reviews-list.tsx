@@ -1,4 +1,5 @@
 import { memo, useEffect } from 'react';
+import { MAX_REVIEW_COUNT } from '../../constants';
 import { useAppDispatch } from '../../hooks/useDispatch';
 import { useAppSelector } from '../../hooks/useSelector';
 import { fetchCommentsAction } from '../../store/actions/api-actions';
@@ -19,6 +20,12 @@ function ReviewList({offerId}: reviewListPropsType): JSX.Element {
   }, [offerId, dispatch]);
 
   const reviews = useAppSelector(getComments);
+  const sortedReviews =
+    reviews
+      .slice()
+      .sort((a, b) => Number(b.date) - Number(a.date))
+      .slice(0, MAX_REVIEW_COUNT);
+
   const isCommentsLoading = useAppSelector(getCommentLoadingStatus);
 
   if (isCommentsLoading) {
@@ -32,7 +39,7 @@ function ReviewList({offerId}: reviewListPropsType): JSX.Element {
       <h2 className="reviews__title">Reviews · <span className="reviews__amount">{reviews.length}</span></h2>
       <ul className="reviews__list">
         {
-          reviews.map((review) => (
+          sortedReviews.map((review) => (
             <Review
               key={review.id}
               review={review}
