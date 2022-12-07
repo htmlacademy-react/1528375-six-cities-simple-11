@@ -1,5 +1,11 @@
 import { City } from './types/types';
 
+export const RouteUrls = {
+  MAIN: '/',
+  LOGIN: '/login',
+  OFFER: '/offer/:id',
+};
+
 export const CITIES: City[] = [
   {
     title: 'Paris',
