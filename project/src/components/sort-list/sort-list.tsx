@@ -1,15 +1,15 @@
-import { sortingItems } from '../../constants';
-import { MouseEvent, useState } from 'react';
-import { getSortingTypeAction } from '../../store/actions/action';
+import { sortItemsList } from '../../constants';
+import { memo, MouseEvent, useEffect, useState } from 'react';
+import { getSortingTypeAction } from '../../store/ui-actions/ui-actions';
 import { useAppDispatch } from '../../hooks/useDispatch';
 
 
 function SortList(): JSX.Element {
-  const sortingArr = Object.values(sortingItems);
+  const sortingArr = Object.values(sortItemsList);
 
   const dispatch = useAppDispatch();
-  const [isListOpened, setIsListOpened] = useState(false);
-  const [sortType, setSortType] = useState(sortingItems.POPULAR);
+  const [isListOpened, setIsListOpened] = useState<boolean>(false);
+  const [sortType, setSortType] = useState<string>(sortItemsList.POPULAR);
 
   function handleListOpen() {
     setIsListOpened(!isListOpened);
@@ -20,7 +20,9 @@ function SortList(): JSX.Element {
     setIsListOpened(!isListOpened);
   }
 
-  dispatch(getSortingTypeAction(sortType));
+  useEffect(() => {
+    dispatch(getSortingTypeAction(sortType));
+  });
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -44,4 +46,4 @@ function SortList(): JSX.Element {
   );
 }
 
-export { SortList };
+export default memo(SortList);

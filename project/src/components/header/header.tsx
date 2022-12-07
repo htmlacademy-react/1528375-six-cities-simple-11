@@ -4,6 +4,7 @@ import { AuthStatus } from '../../constants';
 import { useAppDispatch } from '../../hooks/useDispatch';
 import { useAppSelector } from '../../hooks/useSelector';
 import { logoutAction } from '../../store/actions/api-actions';
+import { getUserData } from '../../store/user-process/selectors';
 
 type HeaderPropsType = {
   authorizationStatus: AuthStatus;
@@ -18,7 +19,7 @@ function Header({authorizationStatus}: HeaderPropsType): JSX.Element {
     dispatch(logoutAction());
   }
 
-  const { avatarUrl, name } = useAppSelector((state) => state.userData);
+  const { avatarUrl, name } = useAppSelector(getUserData);
 
   return (
     <header className="header">

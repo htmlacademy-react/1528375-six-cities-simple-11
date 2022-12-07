@@ -7,12 +7,15 @@ import { Header } from '../header/header';
 import { PrivateRoute } from '../private-route/private-route';
 import { Login } from '../../pages/login/login';
 import { ScrollToTop } from '../../scroll-to-top';
+import { getOffers } from '../../store/offers-data/selectors';
+import { getAuthStatus } from '../../store/user-process/selectors';
+import { RouteUrls } from '../../constants';
 
 
 function App(): JSX.Element {
 
-  const offers = useAppSelector((state) => state.offers);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const offers = useAppSelector(getOffers);
+  const authorizationStatus = useAppSelector(getAuthStatus);
 
   return (
     <BrowserRouter>
@@ -20,7 +23,7 @@ function App(): JSX.Element {
       <ScrollToTop />
       <Routes>
         <Route
-          index path='/'
+          index path={RouteUrls.MAIN}
           element={
             <MainPage
               offers={offers}
@@ -28,13 +31,13 @@ function App(): JSX.Element {
           }
         />
         <Route
-          path='/offer/:id'
+          path={RouteUrls.OFFER}
           element={
             <Room authorizationStatus={authorizationStatus}/>
           }
         />
         <Route
-          path='/login'
+          path={RouteUrls.LOGIN}
           element={
             <PrivateRoute authorizationStatus={authorizationStatus}>
               <Login />

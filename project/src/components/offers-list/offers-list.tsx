@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { OfferCard } from '../../components/offer-card/offer-card';
 import { OffersType } from '../../types/types';
 
@@ -24,4 +25,4 @@ function OffersList({cityOffers, onOfferHover}: OffersListType): JSX.Element {
   );
 }
 
-export {OffersList};
+export default memo(OffersList);

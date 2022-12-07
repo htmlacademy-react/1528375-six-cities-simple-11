@@ -1,5 +1,11 @@
 import { City } from './types/types';
 
+export const RouteUrls = {
+  MAIN: '/',
+  LOGIN: '/login',
+  OFFER: '/offer/:id',
+};
+
 export const CITIES: City[] = [
   {
     title: 'Paris',
@@ -33,7 +39,7 @@ export const CITIES: City[] = [
   },
 ];
 
-export const sortingItems = {
+export const sortItemsList = {
   POPULAR: 'Popular',
   PRICE_UP: 'Price: low to high',
   PRICE_DOWN: 'Price: high to low',
@@ -45,4 +51,19 @@ export enum AuthStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export enum NameSpace {
+  Offers = 'OFFERS',
+  TargetOffer = 'TARGET_OFFER',
+  User = 'USER',
+  Comments = 'COMMENTS',
+  Ui = 'UI',
+}
+
+export const ReviewValid = {
+  MAX_LENGTH: 300,
+  MIN_LENGTH: 50
+};
+
+export const MAX_REVIEW_COUNT = 10;
 

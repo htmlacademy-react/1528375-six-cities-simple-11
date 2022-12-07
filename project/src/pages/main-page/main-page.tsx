@@ -1,11 +1,15 @@
-import { CitiesList } from '../../components/cities-list/cities-list';
+import CitiesList from '../../components/cities-list/cities-list';
 import { OffersType } from '../../types/types';
-import { OffersList } from '../../components/offers-list/offers-list';
+import OffersList from '../../components/offers-list/offers-list';
 import { Map } from '../../components/map/map';
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks/useSelector';
-import { SortList } from '../../components/sort-list/sort-list';
+import SortList from '../../components/sort-list/sort-list';
 import { Loading } from '../../components/loading/loading';
+import { sortItemsList } from '../../constants';
+import { getSelectedCity, getSortType } from '../../store/ui-actions/selectors';
+import { getOffersLoadingStatus } from '../../store/offers-data/selectors';
+import { MainPageEmpty } from '../../components/main-empty/main-empty';
 
 type MainPropsType = {
   offers: OffersType[];
@@ -23,32 +27,31 @@ function MainPage(props: MainPropsType): JSX.Element {
     setSelectedOffer(currentOffer);
   };
 
-  const selectedCity = useAppSelector((state) => state.selectedCity);
+  const selectedCity = useAppSelector(getSelectedCity);
   const cityOffers = offers.filter((item) => item.city.name === selectedCity.title);
 
-  const sortingTypeName = useAppSelector((state) => state.sortType);
+  const sortingTypeName = useAppSelector(getSortType);
 
   const sortedOffers = () => {
     switch (sortingTypeName) {
-      case 'Price: low to high':
+      case sortItemsList.PRICE_DOWN:
         return cityOffers.sort((a, b) => a.price - b.price);
-      case 'Price: high to low':
+      case sortItemsList.PRICE_UP:
         return cityOffers.sort((a, b) => b.price - a.price);
-      case 'Top rated first':
+      case sortItemsList.RATING_DOWN:
         return cityOffers.sort((a, b) => b.rating - a.rating);
       default:
         return cityOffers;
     }
   };
 
-  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
+  const isOffersLoading = useAppSelector(getOffersLoadingStatus);
 
   if (isOffersLoading) {
     return (
       <Loading />
     );
   }
-
 
   return (
     <main className="page__main page__main--index">
@@ -58,24 +61,32 @@ function MainPage(props: MainPropsType): JSX.Element {
         <CitiesList selectedCity={selectedCity} />
 
       </div>
-      <div className="cities">
-        <div className="cities__places-container container">
-          <section className="cities__places places">
-            <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{cityOffers.length} places to stay in {selectedCity.title}</b>
 
-            <SortList />
+      {
+        cityOffers.length
+          ?
+          <div className="cities">
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{cityOffers.length} places to stay in {selectedCity.title}</b>
 
-            <OffersList cityOffers={sortedOffers()} onOfferHover={onOfferHover}/>
+                <SortList />
 
-          </section>
-          <div className="cities__right-section">
+                <OffersList cityOffers={sortedOffers()} onOfferHover={onOfferHover}/>
 
-            <Map selectedCity={selectedCity} offers={offers} selectedOffer={selectedOffer} height={'836px'} classname={'cities__map'} />
+              </section>
+              <div className="cities__right-section">
 
+                <Map selectedCity={selectedCity} offers={offers} selectedOffer={selectedOffer} height={'836px'} classname={'cities__map'} />
+
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+          :
+          <MainPageEmpty />
+      }
+
     </main>
   );
 }
