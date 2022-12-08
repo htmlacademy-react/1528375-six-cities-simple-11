@@ -38,7 +38,7 @@ function Header({authorizationStatus}: HeaderPropsType): JSX.Element {
                 <ul className="header__nav-list">
                   <li className="header__nav-item user">
                     <div className="header__nav-profile">
-                      <div className="header__avatar-wrapper user__avatar-wrapper" style={{backgroundImage: `url(${avatarUrl})`}}/>
+                      <div className="header__avatar-wrapper user__avatar-wrapper" style={{backgroundImage: `url(${avatarUrl})`, borderRadius: '50%'}}/>
                       <span className="header__user-name user__name">{name}</span>
                     </div>
                   </li>
