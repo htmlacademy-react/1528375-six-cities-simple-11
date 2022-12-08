@@ -49,11 +49,11 @@ function ReviewForm({offerId}: reviewListPropsType): JSX.Element {
       <div className="reviews__rating-form form__rating">
 
         {
-          rating.reverse().map((item, i) => (
+          rating.reverse().map((item, count) => (
             <Stars
               key={item}
               item={item}
-              i={i}
+              count={count}
               rating={rating}
               formChangeHandle={formChangeHandle}
             />

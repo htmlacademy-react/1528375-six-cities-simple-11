@@ -35,9 +35,9 @@ function MainPage(props: MainPropsType): JSX.Element {
   const sortedOffers = () => {
     switch (sortingTypeName) {
       case sortItemsList.PRICE_DOWN:
-        return cityOffers.sort((a, b) => a.price - b.price);
-      case sortItemsList.PRICE_UP:
         return cityOffers.sort((a, b) => b.price - a.price);
+      case sortItemsList.PRICE_UP:
+        return cityOffers.sort((a, b) => a.price - b.price);
       case sortItemsList.RATING_DOWN:
         return cityOffers.sort((a, b) => b.rating - a.rating);
       default:
