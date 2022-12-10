@@ -15,14 +15,15 @@ const fetchOffersAction = createAsyncThunk<OffersType[], undefined, {
   },
 );
 
-const fetchAuthStatusAction = createAsyncThunk<void, undefined, {
+const fetchAuthStatusAction = createAsyncThunk<UserData, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'auth/FetchAuthStatus',
   async(_arg, {extra: api}) => {
-    await api.get('/login');
+    const {data} = await api.get<UserData>('/login');
+    return data;
   }
 );
 
