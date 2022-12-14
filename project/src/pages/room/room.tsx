@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { OffersType } from '../../types/types';
+import { useEffect } from 'react';
 import { ReviewForm } from '../../components/review-form/review-form';
 import { OfferCard } from '../../components/offer-card/offer-card';
 import { Map } from '../../components/map/map';
@@ -22,15 +21,9 @@ const calcRating = (rating: number): number => (Math.round(rating) * 100) / 5;
 function Room({authorizationStatus}: RoomPropsType): JSX.Element {
   const dispatch = useAppDispatch();
   const selectedCity = useAppSelector(getSelectedCity);
-  const [selectedOffer, setSelectedOffer] = useState<OffersType | undefined>(undefined);
   const {id: paramId} = useParams();
   const offerId = Number(paramId);
   const isTargetLoading = useAppSelector(getTargetOfferLoadingStatus);
-
-  const onOfferHover = (id: number) => {
-    const currentOffer = nearbyOffers.find((item) => item.id === id) as OffersType;
-    setSelectedOffer(currentOffer);
-  };
 
   useEffect(() => {
     dispatch(fetchTargetOfferAction(offerId));
@@ -39,6 +32,9 @@ function Room({authorizationStatus}: RoomPropsType): JSX.Element {
 
   const offer = useAppSelector(getTargetOffer);
   const nearbyOffers = useAppSelector(getNearbyOffers);
+
+  const offersOnMap = nearbyOffers.slice(0);
+  offersOnMap.push(offer);
 
   const { isPremium, price, title, type, rating, bedrooms, maxAdults, goods, images, host } = offer;
 
@@ -155,7 +151,7 @@ function Room({authorizationStatus}: RoomPropsType): JSX.Element {
           </div>
         </div>
 
-        <Map selectedCity={selectedCity} offers={nearbyOffers} selectedOffer={selectedOffer} height={'579px'} classname={'property__map'} />
+        <Map selectedCity={selectedCity} offers={offersOnMap} selectedOffer={offer} height={'579px'} classname={'property__map'} />
 
 
       </section>
@@ -166,11 +162,14 @@ function Room({authorizationStatus}: RoomPropsType): JSX.Element {
 
             {
               nearbyOffers.map((nearby) => (
-                <OfferCard
+                <article
+                  className='cities__card place-card'
                   key={nearby.id}
-                  offer={nearby}
-                  onOfferHover={onOfferHover}
-                />
+                >
+                  <OfferCard
+                    offer={nearby}
+                  />
+                </article>
               ))
             }
 

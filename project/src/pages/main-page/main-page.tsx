@@ -15,16 +15,14 @@ type MainPropsType = {
   offers: OffersType[];
 }
 
-
 function MainPage(props: MainPropsType): JSX.Element {
 
   const { offers } = props;
 
   const [selectedOffer, setSelectedOffer] = useState<OffersType | undefined>(undefined);
 
-  const onOfferHover = (offerId: number) => {
-    const currentOffer = offers.find((offer) => offer.id === offerId) as OffersType;
-    setSelectedOffer(currentOffer);
+  const onOfferHover = (offer: OffersType): void => {
+    setSelectedOffer(offer);
   };
 
   const selectedCity = useAppSelector(getSelectedCity);
