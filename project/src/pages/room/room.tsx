@@ -1,13 +1,12 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { OffersType } from '../../types/types';
+import { useEffect } from 'react';
 import { ReviewForm } from '../../components/review-form/review-form';
 import { OfferCard } from '../../components/offer-card/offer-card';
 import { Map } from '../../components/map/map';
 import ReviewList from '../../components/reviews-list/reviews-list';
 import { useAppSelector } from '../../hooks/useSelector';
 import { fetchNearbyOffersAction, fetchTargetOfferAction } from '../../store/actions/api-actions';
-import { AuthStatus } from '../../constants';
+import { AuthStatus, MAX_OFFER_IMAGES } from '../../constants';
 import { Loading } from '../../components/loading/loading';
 import { useAppDispatch } from '../../hooks/useDispatch';
 import { getSelectedCity } from '../../store/ui-actions/selectors';
@@ -22,15 +21,9 @@ const calcRating = (rating: number): number => (Math.round(rating) * 100) / 5;
 function Room({authorizationStatus}: RoomPropsType): JSX.Element {
   const dispatch = useAppDispatch();
   const selectedCity = useAppSelector(getSelectedCity);
-  const [selectedOffer, setSelectedOffer] = useState<OffersType | undefined>(undefined);
   const {id: paramId} = useParams();
   const offerId = Number(paramId);
   const isTargetLoading = useAppSelector(getTargetOfferLoadingStatus);
-
-  const onOfferHover = (id: number) => {
-    const currentOffer = nearbyOffers.find((item) => item.id === id) as OffersType;
-    setSelectedOffer(currentOffer);
-  };
 
   useEffect(() => {
     dispatch(fetchTargetOfferAction(offerId));
@@ -39,6 +32,9 @@ function Room({authorizationStatus}: RoomPropsType): JSX.Element {
 
   const offer = useAppSelector(getTargetOffer);
   const nearbyOffers = useAppSelector(getNearbyOffers);
+
+  const offersOnMap = nearbyOffers.slice(0);
+  offersOnMap.push(offer);
 
   const { isPremium, price, title, type, rating, bedrooms, maxAdults, goods, images, host } = offer;
 
@@ -56,7 +52,7 @@ function Room({authorizationStatus}: RoomPropsType): JSX.Element {
         <div className="property__gallery-container container">
           <div className="property__gallery">
 
-            {images.map((image) => (
+            {images.slice(0, MAX_OFFER_IMAGES).map((image) => (
               <div className="property__image-wrapper" key={image}>
                 <img className="property__image" src={image} alt="Photostudio" />
               </div>
@@ -91,7 +87,7 @@ function Room({authorizationStatus}: RoomPropsType): JSX.Element {
                 {type}
               </li>
               <li className="property__feature property__feature--bedrooms">
-                {bedrooms} Bedrooms
+                {bedrooms} Bedroom{bedrooms > 1 ? 's' : ''}
               </li>
               <li className="property__feature property__feature--adults">
                   Max {maxAdults} adults
@@ -155,7 +151,7 @@ function Room({authorizationStatus}: RoomPropsType): JSX.Element {
           </div>
         </div>
 
-        <Map selectedCity={selectedCity} offers={nearbyOffers} selectedOffer={selectedOffer} height={'579px'} classname={'property__map'} />
+        <Map selectedCity={selectedCity} offers={offersOnMap} selectedOffer={offer} height={'579px'} classname={'property__map'} />
 
 
       </section>
@@ -166,11 +162,14 @@ function Room({authorizationStatus}: RoomPropsType): JSX.Element {
 
             {
               nearbyOffers.map((nearby) => (
-                <OfferCard
+                <article
+                  className='cities__card place-card'
                   key={nearby.id}
-                  offer={nearby}
-                  onOfferHover={onOfferHover}
-                />
+                >
+                  <OfferCard
+                    offer={nearby}
+                  />
+                </article>
               ))
             }
 

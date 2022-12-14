@@ -4,7 +4,7 @@ import { OffersType } from '../../types/types';
 
 type OffersListType = {
   cityOffers: OffersType[];
-  onOfferHover: (offerId: number) => void;
+  onOfferHover: (offer: OffersType) => void;
 }
 
 
@@ -14,11 +14,15 @@ function OffersList({cityOffers, onOfferHover}: OffersListType): JSX.Element {
     <div className="cities__places-list places__list tabs__content">
       {
         cityOffers.map((offer) => (
-          <OfferCard
+          <article
+            className='cities__card place-card'
             key={offer.id}
-            offer={offer}
-            onOfferHover={onOfferHover}
-          />
+            onMouseEnter={() => onOfferHover(offer)}
+          >
+            <OfferCard
+              offer={offer}
+            />
+          </article>
         ))
       }
     </div>
