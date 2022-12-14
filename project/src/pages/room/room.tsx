@@ -7,7 +7,7 @@ import { Map } from '../../components/map/map';
 import ReviewList from '../../components/reviews-list/reviews-list';
 import { useAppSelector } from '../../hooks/useSelector';
 import { fetchNearbyOffersAction, fetchTargetOfferAction } from '../../store/actions/api-actions';
-import { AuthStatus } from '../../constants';
+import { AuthStatus, MAX_OFFER_IMAGES } from '../../constants';
 import { Loading } from '../../components/loading/loading';
 import { useAppDispatch } from '../../hooks/useDispatch';
 import { getSelectedCity } from '../../store/ui-actions/selectors';
@@ -56,7 +56,7 @@ function Room({authorizationStatus}: RoomPropsType): JSX.Element {
         <div className="property__gallery-container container">
           <div className="property__gallery">
 
-            {images.map((image) => (
+            {images.slice(0, MAX_OFFER_IMAGES).map((image) => (
               <div className="property__image-wrapper" key={image}>
                 <img className="property__image" src={image} alt="Photostudio" />
               </div>
@@ -91,7 +91,7 @@ function Room({authorizationStatus}: RoomPropsType): JSX.Element {
                 {type}
               </li>
               <li className="property__feature property__feature--bedrooms">
-                {bedrooms} Bedrooms
+                {bedrooms} Bedroom{bedrooms > 1 ? 's' : ''}
               </li>
               <li className="property__feature property__feature--adults">
                   Max {maxAdults} adults

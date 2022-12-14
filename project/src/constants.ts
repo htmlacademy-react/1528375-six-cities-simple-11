@@ -66,4 +66,5 @@ export const ReviewValid = {
 };
 
 export const MAX_REVIEW_COUNT = 10;
+export const MAX_OFFER_IMAGES = 6;
 
